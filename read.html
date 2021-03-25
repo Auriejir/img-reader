@@ -1,0 +1,103 @@
+<!DOCTYPE html> 
+<html lang="fr">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <script type="text/javascript">
+    
+    function stache(str) { return str.replace(/{[^{}]*}(\([0-9]\))?/g, z); }
+    function zerofill(a,b) { if (b) { if (a.length < 2) return '0'+a; } return a; }
+    function updateStatus(index){ document.getElementById("st"+index).style.backgroundColor = "green"; }
+    document.onkeydown = function(p){ switch(p.keyCode) { case 37 : clac(-1);break; case 39 : clac(1); break; } }
+    function whipe(){ document.getElementById("pages").innerHTML = ""; document.getElementById("status").innerHTML = ""; }
+    function z(a){ var b = a.replace(/{([^{}]*)}/g,'$1').split('0'); return zerofill( document.getElementById(b.slice(-1)[0]).value, !!(b.length-1)); }
+    function beard(str,page) { return str.replace(/{chap}/g, document.getElementById('chap').value).replace(/{0page}/g, zerofill(page,true) ).replace(/{page}/g, page ); }
+    function getB64Img(img) {var canvas=document.createElement("canvas"); canvas.width=img.width;canvas.height=img.height;canvas.getContext("2d").drawImage(img,0,0); return canvas.toDataURL("image/png"); }
+
+    function see() {
+      var img = document.getElementById("image") || document.createElement("img"); img.id = "image"; img.src = stache(document.getElementById('livre').value); 
+      img.onclick = function(){ document.getElementById("page").value = Number(document.getElementById("page").value) + 1; this.src = stache(document.getElementById('livre').value); }; 
+      document.getElementById("pages").appendChild(img);
+    }
+
+    function init() {
+      window.document.__defineGetter__('referrer', function() { return document.getElementById('livre').value.split('/')[2]; } ); whipe();
+      var page = document.getElementById('page'), stats = document.getElementById("status"), newPic = document.createElement("img"); 
+      newPic.id = "pic" + Number(page.value); newPic.style.display = "block"; newPic.src = stache(document.getElementById('livre').value);
+      newPic.onload = function(){updateStatus(Number(page.value));loadNext(Number(page.value)+1);};
+      newPic.onclick = function(){clac(1);}; document.getElementById("pages").appendChild(newPic);
+      for (var i=0;i<150;i++) {
+        var nioudive = document.createElement("div"); nioudive.id = "st"+i; nioudive.style.height = "8px"; nioudive.style.width  = "8px";
+        nioudive.style.display= "inline-block"; nioudive.style.margin = "5px 5px 5px 0px"; nioudive.style.backgroundColor = "red"; stats.appendChild(nioudive);
+      }
+    }
+
+    function fancynit() {
+      window.document.__defineGetter__('referrer', function() { return document.getElementById('livre').value.split('/')[2]; } ); whipe();
+      var page = document.getElementById('page'), stats = document.getElementById("status"), newPic = document.createElement("img"), rq = new XMLHttpRequest();
+      newPic.id = "pic" + Number(page.value); newPic.style.display = "block"; newPic.classList.add('current'); rq.onreadystatechange = processDisPic;
+      rq.open("POST", 'http://victor.labolle.com/coucou/ajax.php', true); newPic.onclick = function(){clac(1);}; rq.setRequestHeader("Content-type","application/x-www-form-urlencoded"); 
+      rq.send('functionName=getDatPic&arg1='+encodeURIComponent(beard(document.getElementById('livre').value,page.value))); document.getElementById("pages").appendChild(newPic);
+      for (var i=0;i<150;i++) {
+        var nioudive = document.createElement("div"); nioudive.id = "st"+i; nioudive.style.height = "8px"; nioudive.style.width  = "8px";
+        nioudive.style.display= "inline-block"; nioudive.style.margin = "5px 5px 5px 0px"; nioudive.style.backgroundColor = "red"; stats.appendChild(nioudive);
+      }
+    }
+
+    function processDisPic(e) {
+      switch(this.readyState) {
+        case 404  : return console.log(this); break; case 1011 : return console.log(this); break;
+        case 4 : case 200 : { var pic = document.getElementsByClassName('current')[0]; pic.src = this.responseText; pic.classList.remove('current');
+        /*  if ( Number( pic.id.slice(3) ) < 150 ) { callNxt(Number(pic.id.slice(3))+1); } updateStatus( Number( pic.id.slice(3) ) );*/ } break;
+        //default : return console.log(this); break;
+      }
+    }
+
+    function callNxt(i) {
+      var np = document.createElement("img"), rq = new XMLHttpRequest(); np.id = "pic" + i; np.style.display = "none"; 
+      np.classList.add('current'); np.onclick = function(){clac(1);}; rq.onreadystatechange = processDisPic; document.getElementById("pages").appendChild(np);
+      rq.open("POST", 'http://victor.labolle.com/coucou/ajax.php', true); rq.setRequestHeader("Content-type","application/x-www-form-urlencoded"); 
+      rq.send('functionName=getDatPic&arg1='+encodeURIComponent(beard(document.getElementById('livre').value,''+i)));
+    }
+
+    function clac(num){
+      var p = Number(document.getElementById("page").value);
+      if (!(p < 1 && p > 150 && num < 0)) {
+        document.getElementById("pic"+ p ).style.display = "none"; document.getElementById("st"+ p ).style.border = "none"; document.getElementById("page").value = p + num; 
+        document.getElementById("pic"+ (p + num) ).style.display = "block"; document.getElementById("st"+ (p + num) ).style.border = "1px solid black";
+      } else document.getElementById("page").value = 0;
+    }
+
+    function loadNext(index){
+      var newPic = document.createElement("img"); newPic.id = "pic" + index; newPic.style.display = "none";
+      if (index < 150) newPic.src = beard(document.getElementById('livre').value,''+index); else return 0;
+      newPic.onload = function(){updateStatus(index); loadNext(Number(index)+1);};
+      newPic.onclick = function(){clac(1);}; document.getElementById("pages").appendChild(newPic);
+    }
+
+    </script>
+  </head>
+  <body>
+    <select id="livre">
+      <option value = "https://www.homestuck.com/images/storyfiles/hs2/0{chap}{0page}.gif">Homestuck's pics</option>
+      <option value = "http://images.mangafreak.net/mangas/detective_conan/detective_conan_{chap}/detective_conan_{chap}_{page}.jpg">Detective Conan</option>
+      <option value = "http://frscan.com/uploads/manga/detective-conan/chapters/{chap}/{0page}.jpg">Detective Conan2</option>
+      <option value = "http://lelscan.com/mangas/one-piece/{chap}/{0page}.jpg">One Piece</option>
+      <option value = "https://www.manga-lel.com/uploads/manga/the-gamer/chapters/{chap}/{0page}.jpg">The Gamer</option>
+      <option value = "http://lelscan.com/mangas/fairy-tail/{chap}/{0page}.jpg">Fairy Tail</option>
+      <option value = "http://lelscan.com/mangas/bleach/{chap}/{0page}.jpg">Bleach</option>
+      <option value = "http://lelscan.com/mangas/naruto/{chap}/{0page}.jpg">Naruto</option>
+      <option value = "http://lelscan.com/mangas/dragon-ball-super/{chap}/{0page}.jpg">dragon ball</option>
+      <option value = "http://lelscan.com/mangas/one-punch-man/{chap}/{0page}.png">one punch man</option>
+    </select>
+    <input type = "number" id="chap" />
+    <input type = "number" id="page" />
+    <input type = "button" id="go" value="See" onclick="see();"/>
+    <input type = "button" id="b64" value="64" onclick="fancynit();"/>
+    <input type = "button" id="all" value="Chapter" onclick="init();"/>
+    <input type = "button" id="clear" value="Clear" onclick="whipe();"/>
+    <input type="button" id="prev" value="<" onclick="clac(-1);"/>
+    <input type="button" id="next" value=">" onclick="clac(1);"/>
+    <div id="status" style="display:inline;"></div><br/>
+    <div id="pages" ></div> 
+  </body>
+</html>
