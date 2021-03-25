@@ -1,0 +1,19 @@
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <style>  
+      p{ transform: rotate(-45deg);transform-origin: center right; width : 220px; text-align: center; margin: -5px -65px 0px -65px; } body { background-color : black; }
+      span#blade.out{animation-duration: 0.8s,0.1s; animation-timing-function: linear, linear; animation-iteration-count: 1, infinite; animation-name: out, glow; width:175px;} 
+      span#blade.in{animation-duration: 0.8s; animation-timing-function: linear; animation-iteration-count: 1; animation-name: in ; width:0px;}
+      #hilt { color:silver; font-size: 14px; cursor:pointer; }
+      #blade { color: limegreen; box-shadow: 0px 0px 7px limegreen; display: inline-block; background-color:limegreen; border-radius: 0px 25px 25px 0px; height:9px; margin:0px; width:0px; }
+      @keyframes out { from { width:0px; } to { width:175px; } }
+      @keyframes in { from { width:175px; } to { width:0px; } }
+      @keyframes glow {  from { box-shadow: 0px 0px  7px limegreen; } 50% { box-shadow: 0px 0px 12px limegreen; } to { box-shadow: 0px 0px  7px limegreen; } }
+    </style>
+    <script type="text/javascript">  
+      function doAnim(e) { var a = document.getElementById('blade').classList; if(a.length<1) return a.add('out'); if(a.contains('out')) a.remove('out'); else a.add('out'); if(a.contains('in'))  a.remove('in');  else a.add('in'); } 
+    </script>
+  </head>
+  <body> <p><b><span id="hilt" onclick="doAnim();">CIIII</span><span id="blade" class="out"></span></b></p></body>
+</html>
