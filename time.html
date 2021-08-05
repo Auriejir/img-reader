@@ -2,23 +2,34 @@
 <html lang="fr">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>tick</title>
-    <style>span{color:blue;}</style>
+    <style>span#t1,span#t2{text-decoration: blink;}</style>
     <script type="text/javascript">
+      function zerofill(a,b=2) { return (a.length < b) ? '0'+a : a; } // (a.length > b) ? a.slice(-1*b) : 
+      function x(n) { return zerofill( Math.floor( n + 0.5 ).toString(16) ); }
+      function grad(text,c) { if( c.length < 2 ) { return ( c.length == 1 ) ? '<span style="color:#' + x(c[0][0]) + x(c[0][1]) + x(c[0][2]) + ';">' + text + '</span>' : text; }
+        var stuff = text.split( "" ), step = stuff.length / ( c.length - 1 ), dc0, dc1, dc2;
+        
+        for( var i = 0, k = 0, j = -1; i < stuff.length; ++i, ++k ) { 
+          if( i % Math.floor( step + 0.5 ) == 0 ) { ++j; k = 0; 
+            dc0 = ( ( c[ ( j + 1 ) % c.length ][0] - c[j][0] ) / step ); dc1 = ( ( c[ ( j + 1 ) % c.length ][1] - c[j][1] ) / step ); dc2 = ( ( c[ ( j + 1 ) % c.length ][2] - c[j][2] ) / step );
+          } stuff[i] = '<span style="color:#' + x( c[j][0] + dc0 * k ) + x( c[j][1] + dc1 * k ) + x( c[j][2] + dc2 * k ) + ';">' + stuff[i] + '</span>';
+        } return stuff.join('');
+      }
+
       function ms2hms(s) { 
         var t = ( s < 0 ) ? -1 * s : s, m, r = []; 
-        if( t >= 31556952000 ) { m = ( t / 31556952000 ).toFixed(0); r.push( m + " year" +   ( ( m > 1 ) ? "s" : "" ) ); t -= ( m * 31556952000 ) }
-        if( t >= 2629746000  ) { m = ( t / 2629746000 ).toFixed(0);  r.push( m + " month" +  ( ( m > 1 ) ? "s" : "" ) ); t -= ( m * 2629746000  ) }
-        if( t >= 86400000    ) { m = ( t / 86400000 ).toFixed(0);    r.push( m + " day" +    ( ( m > 1 ) ? "s" : "" ) ); t -= ( m * 86400000    ) }
-        if( t >= 3600000     ) { m = ( t / 3600000 ).toFixed(0);     r.push( m + " hour" +   ( ( m > 1 ) ? "s" : "" ) ); t -= ( m * 3600000     ) }
-        if( t >= 60000       ) { m = ( t / 60000 ).toFixed(0);       r.push( m + " minute" + ( ( m > 1 ) ? "s" : "" ) ); t -= ( m * 60000       ) }
-        if( t >= 1000        ) { m = ( t / 1000 ).toFixed(0);        r.push( m + " second" + ( ( m > 1 ) ? "s" : "" ) ); t -= ( m * 1000        ) }
+        if( t >= 31556952000 ) { m = Math.floor( t / 31556952000 ); r.push( m + " year"   + ( ( m > 1 ) ? "s" : "" ) ); t -= ( m * 31556952000 ); }
+      //if( t >= 2629746000  ) { m = Math.floor( t / 2629746000  ); r.push( m + " month"  + ( ( m > 1 ) ? "s" : "" ) ); t -= ( m * 2629746000  ); }
+        if( t >= 86400000    ) { m = Math.floor( t / 86400000    ); r.push( m + " day"    + ( ( m > 1 ) ? "s" : "" ) ); t -= ( m * 86400000    ); }
+        if( t >= 3600000     ) { m = Math.floor( t / 3600000     ); r.push( m + " hour"   + ( ( m > 1 ) ? "s" : "" ) ); t -= ( m * 3600000     ); }
+        if( t >= 60000       ) { m = Math.floor( t / 60000       ); r.push( m + " minute" + ( ( m > 1 ) ? "s" : "" ) ); t -= ( m * 60000       ); }
+        if( t >= 1000        ) { m = Math.floor( t / 1000        ); r.push( m + " second" + ( ( m > 1 ) ? "s" : "" ) ); t -= ( m * 1000        ); }
         return r.join(', ');
       }
       //function readable(v) { var r = ( v < 0 ) ? v + 4294967296 : v; return ( r > 562949953421312 ) ? ( r / 1125899906842624. ).toFixed(2) + " P": ( r > 549755813888 ) ? ( r / 1099511627776. ).toFixed(2) + " T": ( r > 536870912 ) ? ( r / 1073741824. ).toFixed(2) + " G": ( r > 524288 ) ? ( r / 1048576. ).toFixed(2) + " M": ( r > 512 ) ? ( r / 1024. ).toFixed(2) + " K": r; }
-      function init(){
-        var timestamp0 = 1594062904960, timestamp1 = Date.now(), timestamp2 = 1766491200000;
-        document.getElementById('t1').innerHTML = ms2hms( timestamp1 - timestamp0 );
-        document.getElementById('t2').innerHTML = ms2hms( timestamp2 - timestamp1 );
+      function init(){ var t0 = 1594062904960, t1 = Date.now(), t2 = 1766491200000;
+        document.getElementById('t1').innerHTML = grad( ms2hms( t1 - t0 ), [ [ 255, 0, 0 ], [ 0, 0, 255 ] ]); 
+        document.getElementById('t2').innerHTML = grad( ms2hms( t2 - t1 ), [ [ 0, 0, 255 ], [ 255, 0, 0 ] ]);
       }
     </script>
   </head>
