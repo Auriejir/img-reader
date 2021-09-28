@@ -1,37 +1,85 @@
 <!DOCTYPE html> 
 <html lang="fr">
   <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>tick</title>
-    <style>span#t1,span#t2{text-decoration: blink;}</style>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>𝒯𝒾𝒸𝓀</title>
+    <style> /* span#t1, span#t2{ text-decoration: line-through; } */
+      div#lost { display: inline-block; width: 420px; vertical-align: top; margin: 5px; } /* iframe {display: none;} */
+      div#stuff { display: inline-block; width: 420px; vertical-align: top; margin: 5px; }
+      div.pouet { display: inline-block; text-align: justify; width: 340px; vertical-align: top; margin: 5px; } 
+      div.pouet div.b { font-weight: bold; text-decoration: underline; } 
+      div.pouet div.d { font-style: italic; text-align: center; font-weight: bold; } 
+      div.pouet div.r { text-align: right; }
+    </style>
     <script type="text/javascript">
+      var rainbow = [ [ 0, 0, 0 ], [ 255, 0, 0 ], [ 255, 255, 0 ], [ 0, 255, 0 ], [ 0, 255, 255 ], [ 0, 0, 255 ], [ 0, 0, 0 ] ];
+      var stamps = [ 1569775077050, 1579089209296, 1586350342726, 1594062904960, Date.now(), 1766491200000 ];
+      var longBS = "{ Paris } O, I am slain! ( Falls. ) [ If thou be merciful, ] Open the tomb, lay me with Juliet. ( Dies. ) / { Romeo } In faith, I will. Let me peruse this face. / Mercutio’s kinsman, noble County Paris! / What said my man, when my betossed soul / Did not attend him as we rode? I think / He told me Paris should have married Juliet. / Said he not so? Or did I dream it so? / Or am I mad, hearing him talk of Juliet, / To think it was so? O, give me thy hand, / One writ with me in sour misfortune’s book! / I’ll bury thee in a triumphant grave. / A grave? O no, a lantern, slaught’red youth; / For here lies Juliet, and her beauty makes / This vault a feasting presence full of light. / Death, lie thou there, by a dead man interr’d. / ( Laying Paris in the tomb. )  How oft when men are at the point of death / Have they been merry, which their keepers call / A lightning before death! O how may I / Call this a lightning? O my love, my wife, / Death, that hath suck’d the honey of thy breath, / Hath had no power yet upon thy beauty: / Thou art not conquer’d, beauty’s ensign yet / Is crimson in thy lips and in thy cheeks, / And death’s pale flag is not advanced there. / Tybalt, liest thou there in thy bloody sheet? / O, what more favor can I do to thee, / Than with that hand that cut thy youth in twain / To sunder his that was thine enemy? / Forgive me, cousin! Ah, dear Juliet, / Why art thou yet so fair? Shall I believe / That unsubstantial Death is amorous, / And that the lean abhorred monster keeps / Thee here in dark to be his paramour? / For fear of that, I still will stay with thee, / And never from this palace of dim night / Depart again. Here, here will I remain / With worms that are thy chambermaids; O, here / Will I set up my everlasting rest, / And shake the yoke of inauspicious stars / From this world-wearied flesh. Eyes, look your last! / Arms, take your last embrace! And, lips, O you / The doors of breath, seal with a righteous kiss / A dateless bargain to engrossing death! / Come, bitter conduct, come, unsavory guide! / Thou desperate pilot, now at once run on / The dashing rocks thy sea-sick weary bark! / Here’s to my love! ( Drinks. ) [ O true apothecary! ] / Thy drugs are quick. Thus with a kiss I die. / ( Dies. )";
+      var mediumBS = "{ Juliet } Go get thee hence, for I will not away. / What’s here? A cup clos’d in my true love’s hand? / Poison, I see, hath been his timeless end. / O churl, drunk all, and left no friendly drop / To help me after? I will kiss thy lips, / Haply some poison yet doth hang on them, / To make me die with a restorative. / Thy lips are warm. // { First Watchman } ( Within. ) [ Lead, boy, which way? ] / { Juliet } Yea, noise? Then I’ll be brief. O happy dagger, ( Taking Romeo’s dagger. ) This is thy sheath; ( Stabs herself. ) [there rust, and let me die.] ( Falls on Romeo’s body and dies. ) ";
+      var shortBS = "{ Capulet } O heavens! O wife, look how our daughter bleeds! / This dagger hath mista’en, for lo his house / Is empty on the back of Montague, / And it mis-sheathed in my daughter’s bosom!";
+      var subs = { "/" : "<br/>", "(" : '<div class="d">', ")" : "</div>", "[" : '<div class="r">', "]" : "</div>", "{" : '<div class="b">', "}" : "</div>" };
+      
       function zerofill(a,b=2) { return (a.length < b) ? '0'+a : a; } // (a.length > b) ? a.slice(-1*b) : 
       function x(n) { return zerofill( Math.floor( n + 0.5 ).toString(16) ); }
-      function grad(text,c) { if( c.length < 2 ) { return ( c.length == 1 ) ? '<span style="color:#' + x(c[0][0]) + x(c[0][1]) + x(c[0][2]) + ';">' + text + '</span>' : text; }
-        var stuff = text.split( "" ), step = stuff.length / ( c.length - 1 ), dc0, dc1, dc2;
-        
+      function grad(text,c,format=false) { if( c.length < 2 ) { return ( c.length == 1 ) ? '<span style="color:#' + x(c[0][0]) + x(c[0][1]) + x(c[0][2]) + ';">' + text + '</span>' : text; }
+        let stuff = text.split( "" ), step = stuff.length / ( c.length - 1 ), dc0, dc1, dc2;
+        if( format ){ for( let i = 0; i < stuff.length; ++i ) { if( subs[stuff[i]] !== undefined ){ stuff[i] = subs[stuff[i]]; } } }
         for( var i = 0, k = 0, j = -1; i < stuff.length; ++i, ++k ) { 
           if( i % Math.floor( step + 0.5 ) == 0 ) { ++j; k = 0; 
-            dc0 = ( ( c[ ( j + 1 ) % c.length ][0] - c[j][0] ) / step ); dc1 = ( ( c[ ( j + 1 ) % c.length ][1] - c[j][1] ) / step ); dc2 = ( ( c[ ( j + 1 ) % c.length ][2] - c[j][2] ) / step );
-          } stuff[i] = '<span style="color:#' + x( c[j][0] + dc0 * k ) + x( c[j][1] + dc1 * k ) + x( c[j][2] + dc2 * k ) + ';">' + stuff[i] + '</span>';
+            dc0 = ( ( c[ ( j + 1 ) % c.length ][0] - c[ j % c.length ][0] ) / step ); dc1 = ( ( c[ ( j + 1 ) % c.length ][1] - c[ j % c.length ][1] ) / step ); dc2 = ( ( c[ ( j + 1 ) % c.length ][2] - c[ j % c.length ][2] ) / step );
+          } stuff[i] = '<span style="color:#' + x( c[ j % c.length ][0] + dc0 * k ) + x( c[ j % c.length ][1] + dc1 * k ) + x( c[ j % c.length ][2] + dc2 * k ) + ';">' + stuff[i] + '</span>';
         } return stuff.join('');
       }
+      function format(text) { let stuff = text.split( "" );
+        for( let i = 0; i < stuff.length; ++i ) { if( subs[stuff[i]] !== undefined ){ stuff[i] = subs[stuff[i]]; } } return stuff.join('');
+      }
 
-      function ms2hms(s) { 
-        var t = ( s < 0 ) ? -1 * s : s, m, r = []; 
-        if( t >= 31556952000 ) { m = Math.floor( t / 31556952000 ); r.push( m + " year"   + ( ( m > 1 ) ? "s" : "" ) ); t -= ( m * 31556952000 ); }
-      //if( t >= 2629746000  ) { m = Math.floor( t / 2629746000  ); r.push( m + " month"  + ( ( m > 1 ) ? "s" : "" ) ); t -= ( m * 2629746000  ); }
-        if( t >= 86400000    ) { m = Math.floor( t / 86400000    ); r.push( m + " day"    + ( ( m > 1 ) ? "s" : "" ) ); t -= ( m * 86400000    ); }
-        if( t >= 3600000     ) { m = Math.floor( t / 3600000     ); r.push( m + " hour"   + ( ( m > 1 ) ? "s" : "" ) ); t -= ( m * 3600000     ); }
-        if( t >= 60000       ) { m = Math.floor( t / 60000       ); r.push( m + " minute" + ( ( m > 1 ) ? "s" : "" ) ); t -= ( m * 60000       ); }
-        if( t >= 1000        ) { m = Math.floor( t / 1000        ); r.push( m + " second" + ( ( m > 1 ) ? "s" : "" ) ); t -= ( m * 1000        ); }
+      function ms2hms(s,f=47) { 
+        let t = ( s < 0 ) ? -1 * s : s, m, r = []; 
+        if( t >= 31556952000 && ( f & 32 ) ) { m = Math.floor( t / 31556952000 ); r.push( m + " year"   + ( ( m > 1 ) ? "s" : "" ) ); t -= ( m * 31556952000 ); }
+        if( t >= 2629746000  && ( f & 16 ) ) { m = Math.floor( t / 2629746000  ); r.push( m + " month"  + ( ( m > 1 ) ? "s" : "" ) ); t -= ( m * 2629746000  ); }
+        if( t >= 86400000    && ( f &  8 ) ) { m = Math.floor( t / 86400000    ); r.push( m + " day"    + ( ( m > 1 ) ? "s" : "" ) ); t -= ( m * 86400000    ); }
+        if( t >= 3600000     && ( f &  4 ) ) { m = Math.floor( t / 3600000     ); r.push( m + " hour"   + ( ( m > 1 ) ? "s" : "" ) ); t -= ( m * 3600000     ); }
+        if( t >= 60000       && ( f &  2 ) ) { m = Math.floor( t / 60000       ); r.push( m + " minute" + ( ( m > 1 ) ? "s" : "" ) ); t -= ( m * 60000       ); }
+        if( t >= 1000        && ( f &  1 ) ) { m = Math.floor( t / 1000        ); r.push( m + " second" + ( ( m > 1 ) ? "s" : "" ) ); t -= ( m * 1000        ); }
         return r.join(', ');
       }
       //function readable(v) { var r = ( v < 0 ) ? v + 4294967296 : v; return ( r > 562949953421312 ) ? ( r / 1125899906842624. ).toFixed(2) + " P": ( r > 549755813888 ) ? ( r / 1099511627776. ).toFixed(2) + " T": ( r > 536870912 ) ? ( r / 1073741824. ).toFixed(2) + " G": ( r > 524288 ) ? ( r / 1048576. ).toFixed(2) + " M": ( r > 512 ) ? ( r / 1024. ).toFixed(2) + " K": r; }
-      function init(){ var t0 = 1594062904960, t1 = Date.now(), t2 = 1766491200000;
-        document.getElementById('t1').innerHTML = grad( ms2hms( t1 - t0 ), [ [ 255, 0, 0 ], [ 0, 0, 255 ] ]); 
-        document.getElementById('t2').innerHTML = grad( ms2hms( t2 - t1 ), [ [ 0, 0, 255 ], [ 255, 0, 0 ] ]);
+      function init(){ let d = [ 1, 2, 4, 8, 16, 32 ], b = [ [], [], [] ]; //flip();
+        document.getElementById('t1').innerHTML = grad( ms2hms( stamps[4] - stamps[3] ), rainbow );
+        document.getElementById('t2').innerHTML = grad( ms2hms( stamps[5] - stamps[4] ), rainbow );
+        document.getElementById('t3').innerHTML = grad( ms2hms( stamps[4] - stamps[0] ), rainbow );
+        for( let i = 0; i < d.length; ++i ) {
+          b[0].push( grad( ms2hms( stamps[4] - stamps[0], d[i] ), rainbow ) );
+          b[1].push( grad( ms2hms( stamps[4] - stamps[3], d[i] ), rainbow ) );
+          b[2].push( grad( ms2hms( stamps[5] - stamps[4], d[i] ), rainbow ) );
+        }
+        document.getElementById('breakdown').innerHTML = [ b[0].join('<br/>'), b[1].join('<br/>'), b[2].join('<br/>') ].join('<br/>');
+        document.getElementById('t4').innerHTML = grad( ms2hms( ( stamps[1] - stamps[0] ) + ( stamps[3] - stamps[2] ) ), rainbow );
+        document.getElementById('t5').innerHTML = grad( ms2hms( ( stamps[2] - stamps[1] ) + ( stamps[4] - stamps[3] ) ), rainbow );
+        document.getElementById('t6').innerHTML = grad( longBS, rainbow, true );//format(longBS);
+        document.getElementById('t7').innerHTML = grad( mediumBS, rainbow, true );//format(longBS);
+        document.getElementById('t8').innerHTML = grad( shortBS, rainbow, true );//format(longBS);
+      }
+      ///*<!-- <span class="latin12CompactTimeStamp-38a8OU timestamp-3ZCmNB"><time aria-label="18:37" datetime="2019-09-29T16:37:57.050Z"><i class="separator-2nZzUB" aria-hidden="true">[</i>18:37<i class="separator-2nZzUB" aria-hidden="true">] </i></time></span> 2020-01-15T11:53:29.296Z, 2020-04-08T12:52:22.726Z -->*/
+
+      // nevermind, the only modern thing about this website is its denial of being called from another website...
+      function flip() { let alLines = document.getElementById('iflip').getElementsByClassName("tableau_liste"), rxdate = /[0-9]{2}\/[0-9]{2}\/[0-9]{4}/g;
+        let stDate = Date.parse('1991-07-13'), outList = [], outStr = ""; rxname = /chlo[eé] ravinet/i;
+        for( let i = 0; i < alLines.length; ++i ) { let pubDate = Date.parse( alLines[i].childNodes[1].innerText.match(rxdate)[0].split('/').reverse().join('-') );
+          let tmpLines = [], j = 5; while( alLines[i].childNodes[j] !== undefined ) { tmpLines.push( alLines[i].childNodes[j].innerText.split('\t') ); j += 2; }
+          for( j = 0; j < tmpLines.length; ++j ) { let lAge = Number( tmpLines[j][2].split(' ') );
+            if( lAge === NaN || Math.floor( ( pubDate - stDate ) / 31556952000 ) == lAge ) { outList.push( tmpLines[j] ); 
+              if( tmpLines[j][0].match(rxname) !== null ) { document.getElementById('lost').innerHTML = "Shit, found her..."; return false; }
+            }
+          }
+        } console.log(outList);
+        document.getElementById('lost').innerHTML = "presumed alive..."; return outList.length;
       }
     </script>
   </head>
-  <body onload="init();"><div id="stuff">been waiting for <span id="t1"></span><br/><span id="t2"></span> more to go...</div></body>
+  <body onload="init();">
+    <div id="stuff">
+      <span id="t1"></span> elapsed<br/><span id="t2"></span> more to go...<br/><span id="t3"></span> total<br/><span id="breakdown"></span><br/><span id="t4"></span> effective...<br/><span id="t5"></span> lost...<br/><br/><!-- <iframe id="iflip" title="I. Flip." width="0" height="0" src="https://www.libramemoria.com/avis?nom=&prenom=chloe&debut=&fin=&departement=&commune=&communeName="></iframe><div id="lost"></div> -->
+    </div><div id="t6" class="pouet"></div><div id="t7" class="pouet"></div><div id="t8" class="pouet"></div>
+  </body>
 </html>
