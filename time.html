@@ -12,12 +12,13 @@
     </style>
     <script type="text/javascript">
       var rainbow = [ [ 0, 0, 0 ], [ 255, 0, 0 ], [ 255, 255, 0 ], [ 0, 255, 0 ], [ 0, 255, 255 ], [ 0, 0, 255 ], [ 0, 0, 0 ] ];
-      var stamps = [ 1569775077050, 1579089209296, 1586350342726, 1594062904960, Date.now(), 1766491200000 ];
+      var stamps = [ 1569775077050, 1579089209296, 1586350342726, 1594062904960, Date.now(), 1766491200000, 1649687400151 ];
       var longBS = "{ Paris } O, I am slain! ( Falls. ) [ If thou be merciful, ] Open the tomb, lay me with Juliet. ( Dies. ) / { Romeo } In faith, I will. Let me peruse this face. / Mercutio’s kinsman, noble County Paris! / What said my man, when my betossed soul / Did not attend him as we rode? I think / He told me Paris should have married Juliet. / Said he not so? Or did I dream it so? / Or am I mad, hearing him talk of Juliet, / To think it was so? O, give me thy hand, / One writ with me in sour misfortune’s book! / I’ll bury thee in a triumphant grave. / A grave? O no, a lantern, slaught’red youth; / For here lies Juliet, and her beauty makes / This vault a feasting presence full of light. / Death, lie thou there, by a dead man interr’d. / ( Laying Paris in the tomb. )  How oft when men are at the point of death / Have they been merry, which their keepers call / A lightning before death! O how may I / Call this a lightning? O my love, my wife, / Death, that hath suck’d the honey of thy breath, / Hath had no power yet upon thy beauty: / Thou art not conquer’d, beauty’s ensign yet / Is crimson in thy lips and in thy cheeks, / And death’s pale flag is not advanced there. / Tybalt, liest thou there in thy bloody sheet? / O, what more favor can I do to thee, / Than with that hand that cut thy youth in twain / To sunder his that was thine enemy? / Forgive me, cousin! Ah, dear Juliet, / Why art thou yet so fair? Shall I believe / That unsubstantial Death is amorous, / And that the lean abhorred monster keeps / Thee here in dark to be his paramour? / For fear of that, I still will stay with thee, / And never from this palace of dim night / Depart again. Here, here will I remain / With worms that are thy chambermaids; O, here / Will I set up my everlasting rest, / And shake the yoke of inauspicious stars / From this world-wearied flesh. Eyes, look your last! / Arms, take your last embrace! And, lips, O you / The doors of breath, seal with a righteous kiss / A dateless bargain to engrossing death! / Come, bitter conduct, come, unsavory guide! / Thou desperate pilot, now at once run on / The dashing rocks thy sea-sick weary bark! / Here’s to my love! ( Drinks. ) [ O true apothecary! ] / Thy drugs are quick. Thus with a kiss I die. / ( Dies. )";
       var mediumBS = "{ Juliet } Go get thee hence, for I will not away. / What’s here? A cup clos’d in my true love’s hand? / Poison, I see, hath been his timeless end. / O churl, drunk all, and left no friendly drop / To help me after? I will kiss thy lips, / Haply some poison yet doth hang on them, / To make me die with a restorative. / Thy lips are warm. // { First Watchman } ( Within. ) [ Lead, boy, which way? ] / { Juliet } Yea, noise? Then I’ll be brief. O happy dagger, ( Taking Romeo’s dagger. ) This is thy sheath; ( Stabs herself. ) [there rust, and let me die.] ( Falls on Romeo’s body and dies. ) ";
       var shortBS = "{ Capulet } O heavens! O wife, look how our daughter bleeds! / This dagger hath mista’en, for lo his house / Is empty on the back of Montague, / And it mis-sheathed in my daughter’s bosom!";
       var subs = { "/" : "<br/>", "(" : '<div class="d">', ")" : "</div>", "[" : '<div class="r">', "]" : "</div>", "{" : '<div class="b">', "}" : "</div>" };
       
+      function yoda(f,p) { var r; try { r = f.apply(this,p); } catch(e) { return false; } return r; } // there is no fuckin try
       function zerofill(a,b=2) { return (a.length < b) ? '0'+a : a; } // (a.length > b) ? a.slice(-1*b) : 
       function x(n) { return zerofill( Math.floor( n + 0.5 ).toString(16) ); }
       function grad(text,c,format=false) { if( c.length < 2 ) { return ( c.length == 1 ) ? '<span style="color:#' + x(c[0][0]) + x(c[0][1]) + x(c[0][2]) + ';">' + text + '</span>' : text; }
@@ -45,7 +46,7 @@
       }
       //function readable(v) { var r = ( v < 0 ) ? v + 4294967296 : v; return ( r > 562949953421312 ) ? ( r / 1125899906842624. ).toFixed(2) + " P": ( r > 549755813888 ) ? ( r / 1099511627776. ).toFixed(2) + " T": ( r > 536870912 ) ? ( r / 1073741824. ).toFixed(2) + " G": ( r > 524288 ) ? ( r / 1048576. ).toFixed(2) + " M": ( r > 512 ) ? ( r / 1024. ).toFixed(2) + " K": r; }
       function init(){ let d = [ 1, 2, 4, 8, 16, 32 ], b = [ [], [], [] ]; //flip();
-        document.getElementById('t1').innerHTML = grad( ms2hms( stamps[4] - stamps[3] ), rainbow );
+        document.getElementById('t1').innerHTML = grad( ms2hms( stamps[6] - stamps[3] ), rainbow );
         document.getElementById('t2').innerHTML = grad( ms2hms( stamps[5] - stamps[4] ), rainbow );
         document.getElementById('t3').innerHTML = grad( ms2hms( stamps[4] - stamps[0] ), rainbow );
         for( let i = 0; i < d.length; ++i ) {
@@ -53,9 +54,9 @@
           b[1].push( grad( ms2hms( stamps[4] - stamps[3], d[i] ), rainbow ) );
           b[2].push( grad( ms2hms( stamps[5] - stamps[4], d[i] ), rainbow ) );
         }
-        document.getElementById('breakdown').innerHTML = [ b[0].join('<br/>'), b[1].join('<br/>'), b[2].join('<br/>') ].join('<br/>');
-        document.getElementById('t4').innerHTML = grad( ms2hms( ( stamps[1] - stamps[0] ) + ( stamps[3] - stamps[2] ) ), rainbow );
-        document.getElementById('t5').innerHTML = grad( ms2hms( ( stamps[2] - stamps[1] ) + ( stamps[4] - stamps[3] ) ), rainbow );
+        document.getElementById('breakdown').innerHTML = '<br/>' + [ b[0].join('<br/>'), b[1].join('<br/>'), b[2].join('<br/>') ].join('<br/><br/>') + '<br/>';
+        document.getElementById('t4').innerHTML = grad( ms2hms( ( stamps[1] - stamps[0] ) + ( stamps[3] - stamps[2] ) + ( stamps[4] - stamps[6] ) ), rainbow );
+        document.getElementById('t5').innerHTML = grad( ms2hms( ( stamps[2] - stamps[1] ) + ( stamps[6] - stamps[3] ) ), rainbow );
         document.getElementById('t6').innerHTML = grad( longBS, rainbow, true );//format(longBS);
         document.getElementById('t7').innerHTML = grad( mediumBS, rainbow, true );//format(longBS);
         document.getElementById('t8').innerHTML = grad( shortBS, rainbow, true );//format(longBS);
@@ -63,23 +64,54 @@
       ///*<!-- <span class="latin12CompactTimeStamp-38a8OU timestamp-3ZCmNB"><time aria-label="18:37" datetime="2019-09-29T16:37:57.050Z"><i class="separator-2nZzUB" aria-hidden="true">[</i>18:37<i class="separator-2nZzUB" aria-hidden="true">] </i></time></span> 2020-01-15T11:53:29.296Z, 2020-04-08T12:52:22.726Z -->*/
 
       // nevermind, the only modern thing about this website is its denial of being called from another website...
-      function flip() { let alLines = document.getElementById('iflip').getElementsByClassName("tableau_liste"), rxdate = /[0-9]{2}\/[0-9]{2}\/[0-9]{4}/g;
-        let stDate = Date.parse('1991-07-13'), outList = [], outStr = ""; rxname = /chlo[eé] ravinet/i;
-        for( let i = 0; i < alLines.length; ++i ) { let pubDate = Date.parse( alLines[i].childNodes[1].innerText.match(rxdate)[0].split('/').reverse().join('-') );
-          let tmpLines = [], j = 5; while( alLines[i].childNodes[j] !== undefined ) { tmpLines.push( alLines[i].childNodes[j].innerText.split('\t') ); j += 2; }
-          for( j = 0; j < tmpLines.length; ++j ) { let lAge = Number( tmpLines[j][2].split(' ') );
-            if( lAge === NaN || Math.floor( ( pubDate - stDate ) / 31556952000 ) == lAge ) { outList.push( tmpLines[j] ); 
-              if( tmpLines[j][0].match(rxname) !== null ) { document.getElementById('lost').innerHTML = "Shit, found her..."; return false; }
-            }
-          }
-        } console.log(outList);
-        document.getElementById('lost').innerHTML = "presumed alive..."; return outList.length;
+      //function flip() { let alLines = document.getElementById('iflip').getElementsByClassName("tableau_liste"), rxdate = /[0-9]{2}\/[0-9]{2}\/[0-9]{4}/g;
+      //  let stDate = Date.parse('1991-07-13'), outList = [], outStr = ""; rxname = /chlo[eé] ravinet/i;
+      //  for( let i = 0; i < alLines.length; ++i ) { let pubDate = Date.parse( alLines[i].childNodes[1].innerText.match(rxdate)[0].split('/').reverse().join('-') );
+      //    let tmpLines = [], j = 5; while( alLines[i].childNodes[j] !== undefined ) { tmpLines.push( alLines[i].childNodes[j].innerText.split('\t') ); j += 2; }
+      //    for( j = 0; j < tmpLines.length; ++j ) { let lAge = Number( tmpLines[j][2].split(' ') );
+      //      if( lAge === NaN || Math.floor( ( pubDate - stDate ) / 31556952000 ) == lAge ) { outList.push( tmpLines[j] ); 
+      //        if( tmpLines[j][0].match(rxname) !== null ) { document.getElementById('lost').innerHTML = "Shit, found her..."; return false; }
+      //      }
+      //    }
+      //  } console.log(outList);
+      //  document.getElementById('lost').innerHTML = "presumed alive..."; return outList.length;
+      //}
+
+      //ask the government instead
+      //https://deces.matchid.io/deces/api/v1/search?firstName=chloe&sex=F&birthDate=13%2F07%2F1991&deathDate=06%2F07%2F2020-31%2F12%2F2025
+      //{ 
+      //  "request": { "sort": [ { "score": "desc" } ], "firstName": "chloe", "sex": "F", "birthDate": "13/07/1991", "deathDate": "06/07/2020-23/12/2025" },
+      //  "response": { "total": 0, "maxScoreES": null, "size": 20, "page": 1, "delay": 41, "persons": [] }
+      //}
+
+      function flipBack() { var ans = {}, out = [];
+        if( this.readyState == 4 || this.readyState == 200 ) { 
+          if ( false !== ( ans = yoda( JSON.parse, [this.responseText] ) ) ) {
+            for (var i = 0; i < ans.response.persons.length; ++i) {
+              if( ans.response.persons[i].birth.date == "19910713" ) {
+                if( ans.response.persons[i].name.last.trim().toLowerCase() == "ravinet" ) {
+                  out.push( '<a href="https://deces.matchid.io/search?advanced=true&fuzzy=false&fn=chloe&sex=F&bd=13%2F07%2F1991">looks like her...</a>' );
+                } else { out.push( '<a href="https://deces.matchid.io/search?advanced=true&fuzzy=false&fn=chloe&sex=F&bd=13%2F07%2F1991">birthdate matches</a>' ); }
+              }
+            } if( out.length < 1 ) { out.push( "found nothing... that's reasuring, right ?" ); }
+            document.getElementById('lost').innerHTML = out.join("<br/>");
+          } else { document.getElementById('lost').innerText = "Bad json, bad..."; console.log( this.responseText ); }
+        }
       }
+      
+      //encodeURIComponent("https://deces.matchid.io/deces/api/v1/search?firstName=chloe&sex=F&birthDate=" + encodeURIComponent("13/07/1991") + "&deathDate=" + encodeURIComponent( "06/07/2020-31/12/2025" ) );
+      function flip() { var x = new XMLHttpRequest(); x.onreadystatechange = flipBack; 
+        var apiRequest = "https%3A%2F%2Fdeces.matchid.io%2Fdeces%2Fapi%2Fv1%2Fsearch%3FfirstName%3Dchloe%26sex%3DF%26birthDate%3D13%252F07%252F1991%26deathDate%3D06%252F07%252F2020-31%252F12%252F2025";
+        x.open( "GET", "http://localhost/test/fuckCORS.php?fct=call&url=" + apiRequest, true );
+        x.setRequestHeader( "Content-type","application/json" ); x.setRequestHeader('X-PINGOTHER', 'pingpong'); x.send( null );
+      }
+
     </script>
   </head>
   <body onload="init();">
     <div id="stuff">
-      <span id="t1"></span> elapsed<br/><span id="t2"></span> more to go...<br/><span id="t3"></span> total<br/><span id="breakdown"></span><br/><span id="t4"></span> effective...<br/><span id="t5"></span> lost...<br/><br/><!-- <iframe id="iflip" title="I. Flip." width="0" height="0" src="https://www.libramemoria.com/avis?nom=&prenom=chloe&debut=&fin=&departement=&commune=&communeName="></iframe><div id="lost"></div> -->
+      <span id="t1"></span> elapsed<br/><span id="t2"></span> more to go...<br/><span id="t3"></span> total<br/><span id="breakdown"></span><br/><span id="t4"></span> effective...<br/><span id="t5"></span> lost...<br/><br/><!-- <iframe id="iflip" title="I. Flip." width="0" height="0" src="https://www.libramemoria.com/avis?nom=&prenom=chloe&debut=&fin=&departement=&commune=&communeName="  src="https://deces.matchid.io/search?advanced=true&fuzzy=false&fn=chloe&bd=1991&dd=2020-2022"></iframe>-->
+      <div id="lost"></div>
     </div><div id="t6" class="pouet"></div><div id="t7" class="pouet"></div><div id="t8" class="pouet"></div>
   </body>
 </html>
