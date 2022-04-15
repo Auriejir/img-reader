@@ -1,19 +1,49 @@
+<!DOCTYPE html> 
 <html>
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <style>  
+      body { --r : 50; --g : 205; --b : 50; } #lr{color: red} #lg{color: green} #lb{color: blue}
       p{ transform: rotate(-45deg);transform-origin: center right; width : 220px; text-align: center; margin: -5px -65px 0px -65px; } body { background-color : black; }
       span#blade.out{animation-duration: 0.8s,0.1s; animation-timing-function: linear, linear; animation-iteration-count: 1, infinite; animation-name: out, glow; width:175px;} 
       span#blade.in{animation-duration: 0.8s; animation-timing-function: linear; animation-iteration-count: 1; animation-name: in ; width:0px;}
       #hilt { color:silver; font-size: 14px; cursor:pointer; }
-      #blade { color: limegreen; box-shadow: 0px 0px 7px limegreen; display: inline-block; background-color:limegreen; border-radius: 0px 25px 25px 0px; height:9px; margin:0px; width:0px; }
+      #blade { color: rgb( var( --r ), var( --g ), var(--b ) ); box-shadow: 0px 0px 7px rgb( var( --r ), var( --g ), var(--b ) ); display: inline-block; background-color:rgb( var( --r ), var( --g ), var(--b ) ); border-radius: 0px 25px 25px 0px; height:9px; margin:0px; width:0px; }
       @keyframes out { from { width:0px; } to { width:175px; } }
       @keyframes in { from { width:175px; } to { width:0px; } }
-      @keyframes glow {  from { box-shadow: 0px 0px  7px limegreen; } 50% { box-shadow: 0px 0px 12px limegreen; } to { box-shadow: 0px 0px  7px limegreen; } }
+      @keyframes glow {  from { box-shadow: 0px 0px  7px rgb( var( --r ), var( --g ), var(--b ) ); } 50% { box-shadow: 0px 0px 12px rgb( var( --r ), var( --g ), var(--b ) ); } to { box-shadow: 0px 0px  7px rgb( var( --r ), var( --g ), var(--b ) ); } }
     </style>
-    <script type="text/javascript">  
-      function doAnim(e) { var a = document.getElementById('blade').classList; if(a.length<1) return a.add('out'); if(a.contains('out')) a.remove('out'); else a.add('out'); if(a.contains('in'))  a.remove('in');  else a.add('in'); } 
+    <script type="text/javascript"> 
+      var cbs;
+
+      function doAnim(e) { 
+        var a = document.getElementById('blade').classList; 
+        if(a.length<1) return a.add('out'); 
+        if(a.contains('out')) a.remove('out'); else a.add('out'); 
+        if(a.contains('in'))  a.remove('in');  else a.add('in'); 
+      } 
+
+      function colorChange(e) { 
+        var c = e.target.id.slice(-1); 
+        document.body.style.setProperty( '--' + c, e.target.value ); 
+        document.getElementById( "l" + c ).innerText = cbs.getPropertyValue( '--' + c ); 
+      }
+
+      function init() { cbs = window.getComputedStyle(document.body); var url = window.location.href.split('#');
+        if( url.length == 4 ) { document.body.style.setProperty('--r', url[1] ); document.body.style.setProperty('--g', url[2] ); document.body.style.setProperty('--b', url[3] ); }
+        document.getElementById("ir").addEventListener("change", colorChange, false); 
+        document.getElementById("ig").addEventListener("change", colorChange, false); 
+        document.getElementById("ib").addEventListener("change", colorChange, false);
+        document.getElementById("ir").value = cbs.getPropertyValue('--r'); document.getElementById("lr").innerText = cbs.getPropertyValue('--r'); 
+        document.getElementById("ig").value = cbs.getPropertyValue('--g'); document.getElementById("lg").innerText = cbs.getPropertyValue('--g'); 
+        document.getElementById("ib").value = cbs.getPropertyValue('--b'); document.getElementById("lb").innerText = cbs.getPropertyValue('--b'); 
+      }
     </script>
   </head>
-  <body> <p><b><span id="hilt" onclick="doAnim();">CIIIIII</span><span id="blade" class="out"></span></b></p></body>
+  <body onload="init();"> 
+    <p><b><span id="hilt" onclick="doAnim();">CIIIIII</span><span id="blade" class="out"></span></b></p> 
+    <input type="range" id="ir" name="ir" min="0" max="255" step="1"><label id="lr" for="ir"></label><br/>
+    <input type="range" id="ig" name="ig" min="0" max="255" step="1"><label id="lg" for="ig"></label><br/>
+    <input type="range" id="ib" name="ib" min="0" max="255" step="1"><label id="lb" for="ib"></label><br/>
+  </body>
 </html>
