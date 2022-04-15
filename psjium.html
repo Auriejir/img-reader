@@ -3,8 +3,8 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <style>  
-      body { --r : 50; --g : 205; --b : 50; } #lr{color: red} #lg{color: green} #lb{color: blue}
-      p{ transform: rotate(-45deg);transform-origin: center right; width : 220px; text-align: center; margin: -5px -65px 0px -65px; } body { background-color : black; }
+      body { --r : 0; --g : 255; --b : 0; } #lr{color: red} #lg{color: green} #lb{color: blue}
+      p{ transform: rotate(-45deg);transform-origin: center right; width : 220px; text-align: center; margin: -5px -65px 0px -65px; }
       span#blade.out{animation-duration: 0.8s,0.1s; animation-timing-function: linear, linear; animation-iteration-count: 1, infinite; animation-name: out, glow; width:175px;} 
       span#blade.in{animation-duration: 0.8s; animation-timing-function: linear; animation-iteration-count: 1; animation-name: in ; width:0px;}
       #hilt { color:silver; font-size: 14px; cursor:pointer; }
@@ -26,8 +26,10 @@
       function colorChange(e) { 
         var c = e.target.id.slice(-1); 
         document.body.style.setProperty( '--' + c, e.target.value ); 
-        document.getElementById( "l" + c ).innerText = cbs.getPropertyValue( '--' + c ); 
+        document.getElementById( "l" + c ).innerText = cbs.getPropertyValue( '--' + c );
       }
+
+      function toggleBG() { document.body.style.backgroundColor = ( document.body.style.backgroundColor == "black" ) ? "white" : "black"; }
 
       function init() { cbs = window.getComputedStyle(document.body); var url = window.location.href.split('#');
         if( url.length == 4 ) { document.body.style.setProperty('--r', url[1] ); document.body.style.setProperty('--g', url[2] ); document.body.style.setProperty('--b', url[3] ); }
@@ -40,10 +42,11 @@
       }
     </script>
   </head>
-  <body onload="init();"> 
+  <body onload="init();" style="background-color : black;"> 
     <p><b><span id="hilt" onclick="doAnim();">CIIIIII</span><span id="blade" class="out"></span></b></p> 
     <input type="range" id="ir" name="ir" min="0" max="255" step="1"><label id="lr" for="ir"></label><br/>
     <input type="range" id="ig" name="ig" min="0" max="255" step="1"><label id="lg" for="ig"></label><br/>
     <input type="range" id="ib" name="ib" min="0" max="255" step="1"><label id="lb" for="ib"></label><br/>
+    <button onclick="toggleBG();">change background color</button>
   </body>
 </html>
