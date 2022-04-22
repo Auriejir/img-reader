@@ -4,16 +4,18 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <style>  
       html { width: 250px; height: 300px; overflow: hidden; }
-      body { --r : 0; --g : 255; --b : 0; } #lr{color: red} #lg{color: green} #lb{color: blue}
+      body { --r : 0; --g : 255; --b : 0; background-color: rgb( calc( 255 - var( --r ) ), calc( 255 - var( --g ) ), calc( 255 - var( --b ) ) ); } #lr{color: red} #lg{color: #00ff00} #lb{color: blue}
       p{ width : 220px; text-align: left; }
       span#blade.out{animation-duration: 0.8s,0.1s; animation-timing-function: linear, linear; animation-iteration-count: 1, infinite; animation-name: out, glow; width:175px;} 
       span#blade.in{animation-duration: 0.8s; animation-timing-function: linear; animation-iteration-count: 1; animation-name: in ; width:0px;}
       .tilt { transform: rotate(-45deg);transform-origin: center right; margin: 0px 0px 160px -60px; }
-      #hilt { color:silver; font-size: 14px; cursor:pointer; }
+      .spin { animation-duration: 1s; animation-timing-function: linear; animation-name: spin ; animation-iteration-count: infinite; transform-origin: center center; margin: 110px 0px 110px 0px; }
+      #hilt { color:silver; font-size: 14px; cursor:col-resize; }
       #blade { color: rgb( var( --r ), var( --g ), var(--b ) ); box-shadow: 0px 0px 7px rgb( var( --r ), var( --g ), var(--b ) ); display: inline-block; background-color:rgb( var( --r ), var( --g ), var(--b ) ); border-radius: 0px 25px 25px 0px; height:9px; margin:0px; width:0px; }
       @keyframes out { from { width:0px; } to { width:175px; } }
       @keyframes in { from { width:175px; } to { width:0px; } }
       @keyframes glow {  from { box-shadow: 0px 0px  7px rgb( var( --r ), var( --g ), var(--b ) ); } 50% { box-shadow: 0px 0px 12px rgb( var( --r ), var( --g ), var(--b ) ); } to { box-shadow: 0px 0px  7px rgb( var( --r ), var( --g ), var(--b ) ); } }
+      @keyframes spin {  from { transform: rotate(0deg); } 50% { transform: rotate(180deg); } to { transform: rotate(360deg); } }
     </style>
     <script type="text/javascript"> 
       var cbs;
@@ -31,26 +33,28 @@
         document.getElementById( "l" + c ).innerText = cbs.getPropertyValue( '--' + c );
       }
 
-      function toggleBG() { document.body.style.backgroundColor = ( document.body.style.backgroundColor == "black" ) ? "white" : "black"; }
+      function toggleSpin() { document.getElementById("sword").classList.toggle("spin"); }
       function toggleTransform() { document.getElementById("sword").classList.toggle("tilt"); }
+      function toggleBG() { document.body.style.backgroundColor = ( document.body.style.backgroundColor == "black" ) ? "white" : "black"; }
 
       function init() { cbs = window.getComputedStyle(document.body); var url = window.location.href.split('#');
         if( url.length == 4 ) { document.body.style.setProperty('--r', url[1] ); document.body.style.setProperty('--g', url[2] ); document.body.style.setProperty('--b', url[3] ); }
-        document.getElementById("ir").addEventListener("change", colorChange, false); 
-        document.getElementById("ig").addEventListener("change", colorChange, false); 
-        document.getElementById("ib").addEventListener("change", colorChange, false);
+        document.getElementById("ir").addEventListener("input", colorChange, false); 
+        document.getElementById("ig").addEventListener("input", colorChange, false); 
+        document.getElementById("ib").addEventListener("input", colorChange, false);
         document.getElementById("ir").value = cbs.getPropertyValue('--r'); document.getElementById("lr").innerText = cbs.getPropertyValue('--r'); 
         document.getElementById("ig").value = cbs.getPropertyValue('--g'); document.getElementById("lg").innerText = cbs.getPropertyValue('--g'); 
         document.getElementById("ib").value = cbs.getPropertyValue('--b'); document.getElementById("lb").innerText = cbs.getPropertyValue('--b'); 
       }
     </script>
   </head>
-  <body onload="init();" style="background-color : black;"> 
+  <body onload="init();"> 
     <p id="sword" class="tilt"><b><span id="hilt" onclick="doAnim();">CIIIIII</span><span id="blade" class="out"></span></b></p> 
     <input type="range" id="ir" name="ir" min="0" max="255" step="1"><label id="lr" for="ir"></label><br/>
     <input type="range" id="ig" name="ig" min="0" max="255" step="1"><label id="lg" for="ig"></label><br/>
     <input type="range" id="ib" name="ib" min="0" max="255" step="1"><label id="lb" for="ib"></label><br/>
-    <button onclick="toggleBG();">background color</button>
-    <button onclick="toggleTransform();">move it</button>
+    <button onclick="toggleBG();">background</button>
+    <button onclick="toggleTransform();">move</button>
+    <button onclick="toggleSpin();">spin</button>
   </body>
 </html>
