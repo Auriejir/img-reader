@@ -4,12 +4,15 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <script type="text/javascript">
     
-    function zerofill(a) { return ( a.length < 2 ) ? '0' + a : a; }
     function stache(str) { return str.replace(/{[^{}]*}(\([0-9]\))?/g, z); }
+    function zerofill(a) { return ( a.length < 2 ) ? ( a.length < 1 ) ? '00' :'0' + a : a; }
     function updateStatus(index){ document.getElementById("st"+index).style.backgroundColor = "green"; }
     document.onkeydown = function(p){ switch(p.keyCode) { case 37 : clac(-1);break; case 39 : clac(1); break; } }
     function whipe(){ document.getElementById("pages").innerHTML = ""; document.getElementById("status").innerHTML = ""; }
-    function z(a){ var b = a.replace(/{([^{}]*)}/g,'$1').split('¤'); return (!!(b.length-1)) ? zerofill( document.getElementById(b.slice(-1)[0]).value ) : document.getElementById(b.slice(-1)[0]).value; }
+    function z(a){ 
+      var b = a.replace(/{([^{}]*)}/g,'$1').split('¤'); 
+      return (!!(b.length-1)) ? zerofill( document.getElementById(b.slice(-1)[0]).value ) : document.getElementById(b.slice(-1)[0]).value; 
+    }
     function beard(str,page) { return str.replace(/{chap}/g, document.getElementById('chap').value).replace(/{¤page}/g, zerofill(page) ).replace(/{page}/g, page ); }
     function getB64Img(img) {var canvas=document.createElement("canvas"); canvas.width=img.width;canvas.height=img.height;canvas.getContext("2d").drawImage(img,0,0); return canvas.toDataURL("image/png"); }
 
