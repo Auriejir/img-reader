@@ -9,8 +9,8 @@
     function updateStatus(index){ document.getElementById("st"+index).style.backgroundColor = "green"; }
     document.onkeydown = function(p){ switch(p.keyCode) { case 37 : clac(-1);break; case 39 : clac(1); break; } }
     function whipe(){ document.getElementById("pages").innerHTML = ""; document.getElementById("status").innerHTML = ""; }
-    function z(a){ var b = a.replace(/{([^{}]*)}/g,'$1').split('0'); return (!!(b.length-1)) ? zerofill( document.getElementById(b.slice(-1)[0]).value ) : document.getElementById(b.slice(-1)[0]).value; }
-    function beard(str,page) { return str.replace(/{chap}/g, document.getElementById('chap').value).replace(/{0page}/g, zerofill(page) ).replace(/{page}/g, page ); }
+    function z(a){ var b = a.replace(/{([^{}]*)}/g,'$1').split('¤'); return (!!(b.length-1)) ? zerofill( document.getElementById(b.slice(-1)[0]).value ) : document.getElementById(b.slice(-1)[0]).value; }
+    function beard(str,page) { return str.replace(/{chap}/g, document.getElementById('chap').value).replace(/{¤page}/g, zerofill(page) ).replace(/{page}/g, page ); }
     function getB64Img(img) {var canvas=document.createElement("canvas"); canvas.width=img.width;canvas.height=img.height;canvas.getContext("2d").drawImage(img,0,0); return canvas.toDataURL("image/png"); }
 
     function see() {
@@ -78,16 +78,16 @@
   </head>
   <body>
     <select id="livre">
-      <option value = "https://www.homestuck.com/images/storyfiles/hs2/0{chap}{0page}.gif">Homestuck's pics</option>
+      <option value = "https://www.homestuck.com/images/storyfiles/hs2/0{chap}{¤page}.gif">Homestuck's pics</option>
       <option value = "http://images.mangafreak.net/mangas/detective_conan/detective_conan_{chap}/detective_conan_{chap}_{page}.jpg">Detective Conan</option>
-      <option value = "http://frscan.com/uploads/manga/detective-conan/chapters/{chap}/{0page}.jpg">Detective Conan2</option>
-      <option value = "http://lelscans.net/mangas/one-piece/{chap}/{0page}.jpg">One Piece</option>
-      <option value = "https://www.manga-lel.com/uploads/manga/the-gamer/chapters/{chap}/{0page}.jpg">The Gamer</option>
-      <option value = "http://lelscans.net/mangas/fairy-tail/{chap}/{0page}.jpg">Fairy Tail</option>
-      <option value = "http://lelscans.net/mangas/bleach/{chap}/{0page}.jpg">Bleach</option>
-      <option value = "http://lelscans.net/mangas/naruto/{chap}/{0page}.jpg">Naruto</option>
-      <option value = "http://lelscans.net/mangas/dragon-ball-super/{chap}/{0page}.jpg">dragon ball</option>
-      <option value = "http://lelscans.net/mangas/one-punch-man/{chap}/{0page}.jpg">one punch man</option>
+      <option value = "http://frscan.com/uploads/manga/detective-conan/chapters/{chap}/{¤page}.jpg">Detective Conan2</option>
+      <option value = "http://lelscans.net/mangas/one-piece/{chap}/{¤page}.jpg">One Piece</option>
+      <option value = "https://www.manga-lel.com/uploads/manga/the-gamer/chapters/{chap}/{¤page}.jpg">The Gamer</option>
+      <option value = "http://lelscans.net/mangas/fairy-tail/{chap}/{¤page}.jpg">Fairy Tail</option>
+      <option value = "http://lelscans.net/mangas/bleach/{chap}/{¤page}.jpg">Bleach</option>
+      <option value = "http://lelscans.net/mangas/naruto/{chap}/{¤page}.jpg">Naruto</option>
+      <option value = "http://lelscans.net/mangas/dragon-ball-super/{chap}/{¤page}.jpg">dragon ball</option>
+      <option value = "http://lelscans.net/mangas/one-punch-man/{chap}/{¤page}.jpg">one punch man</option>
     </select>
     <input type = "number" id="chap" />
     <input type = "number" id="page" />
