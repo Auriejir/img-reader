@@ -13,7 +13,9 @@
     </style>
     <script type="text/javascript">
       var rainbow = [ [ 0, 0, 0 ], [ 255, 0, 0 ], [ 255, 255, 0 ], [ 0, 255, 0 ], [ 0, 255, 255 ], [ 0, 0, 255 ], [ 0, 0, 0 ] ];
-      var stamps = [ 1569775077050, 1579089209296, 1586350342726, 1594062904960, Date.now(), 1766491200000, 1649687400151, 1656108000000 ];
+      //             first contact   first loss    first comeback  second loss      now       expire date  second comeback
+      var stamps = [ 1569775077050, 1579089209296, 1586350342726, 1594062904960, Date.now(), 1766491200000, 1649687400151 ];
+      //                   0              1              2              3            4             5              6
       var longBS = "{ Paris } O, I am slain! ( Falls. ) [ If thou be merciful, ] Open the tomb, lay me with Juliet. ( Dies. ) / { Romeo } In faith, I will. Let me peruse this face. / Mercutio’s kinsman, noble County Paris! / What said my man, when my betossed soul / Did not attend him as we rode? I think / He told me Paris should have married Juliet. / Said he not so? Or did I dream it so? / Or am I mad, hearing him talk of Juliet, / To think it was so? O, give me thy hand, / One writ with me in sour misfortune’s book! / I’ll bury thee in a triumphant grave. / A grave? O no, a lantern, slaught’red youth; / For here lies Juliet, and her beauty makes / This vault a feasting presence full of light. / Death, lie thou there, by a dead man interr’d. / ( Laying Paris in the tomb. )  How oft when men are at the point of death / Have they been merry, which their keepers call / A lightning before death! O how may I / Call this a lightning? O my love, my wife, / Death, that hath suck’d the honey of thy breath, / Hath had no power yet upon thy beauty: / Thou art not conquer’d, beauty’s ensign yet / Is crimson in thy lips and in thy cheeks, / And death’s pale flag is not advanced there. / Tybalt, liest thou there in thy bloody sheet? / O, what more favor can I do to thee, / Than with that hand that cut thy youth in twain / To sunder his that was thine enemy? / Forgive me, cousin! Ah, dear Juliet, / Why art thou yet so fair? Shall I believe / That unsubstantial Death is amorous, / And that the lean abhorred monster keeps / Thee here in dark to be his paramour? / For fear of that, I still will stay with thee, / And never from this palace of dim night / Depart again. Here, here will I remain / With worms that are thy chambermaids; O, here / Will I set up my everlasting rest, / And shake the yoke of inauspicious stars / From this world-wearied flesh. Eyes, look your last! / Arms, take your last embrace! And, lips, O you / The doors of breath, seal with a righteous kiss / A dateless bargain to engrossing death! / Come, bitter conduct, come, unsavory guide! / Thou desperate pilot, now at once run on / The dashing rocks thy sea-sick weary bark! / Here’s to my love! ( Drinks. ) [ O true apothecary! ] / Thy drugs are quick. Thus with a kiss I die. / ( Dies. )";
       var mediumBS = "{ Juliet } Go get thee hence, for I will not away. / What’s here? A cup clos’d in my true love’s hand? / Poison, I see, hath been his timeless end. / O churl, drunk all, and left no friendly drop / To help me after? I will kiss thy lips, / Haply some poison yet doth hang on them, / To make me die with a restorative. / Thy lips are warm. // { First Watchman } ( Within. ) [ Lead, boy, which way? ] / { Juliet } Yea, noise? Then I’ll be brief. O happy dagger, ( Taking Romeo’s dagger. ) This is thy sheath; ( Stabs herself. ) [there rust, and let me die.] ( Falls on Romeo’s body and dies. ) ";
       var shortBS = "{ Capulet } O heavens! O wife, look how our daughter bleeds! / This dagger hath mista’en, for lo his house / Is empty on the back of Montague, / And it mis-sheathed in my daughter’s bosom!";
@@ -50,12 +52,12 @@
         document.getElementById('t1').innerHTML = grad( ms2hms( stamps[6] - stamps[3] ), rainbow );
         document.getElementById('t2').innerHTML = grad( ms2hms( stamps[5] - stamps[4] ), rainbow );
         document.getElementById('t3').innerHTML = grad( ms2hms( stamps[4] - stamps[0] ), rainbow );
-        document.getElementById('t9').innerHTML = grad( ms2hms( stamps[7] - stamps[4] ), rainbow );
+        document.getElementById('t9').innerHTML = grad( ms2hms( stamps[6] - stamps[4] ), rainbow );
         for( let i = 0; i < d.length; ++i ) {
           b[0].push( grad( ms2hms( stamps[4] - stamps[0], d[i] ), rainbow ) );
           b[1].push( grad( ms2hms( stamps[4] - stamps[3], d[i] ), rainbow ) );
           b[2].push( grad( ms2hms( stamps[5] - stamps[4], d[i] ), rainbow ) );
-          b[3].push( grad( ms2hms( stamps[7] - stamps[4], d[i] ), rainbow ) );
+          b[3].push( grad( ms2hms( stamps[6] - stamps[4], d[i] ), rainbow ) );
         }
         document.getElementById('breakdown').innerHTML = '<br/>' + [ b[0].join('<br/>'), b[1].join('<br/>'), b[2].join('<br/>'), b[3].join('<br/>') ].join('<br/><br/>') + '<br/>';
         document.getElementById('t4').innerHTML = grad( ms2hms( ( stamps[1] - stamps[0] ) + ( stamps[3] - stamps[2] ) + ( stamps[4] - stamps[6] ) ), rainbow );
@@ -123,7 +125,7 @@
   </head>
   <body onload="init();">
     <div id="stuff">
-      <span id="t1"></span> elapsed<br/><span id="t2"></span> more to go...<br/><span id="t3"></span> total<br/><span id="breakdown"></span><br/><span id="t4"></span> effective...<br/><span id="t5"></span> lost...<br/><span id="t9"></span> more to wait...<br/><br/><!-- <iframe id="iflip" title="I. Flip." width="0" height="0" src="https://www.libramemoria.com/avis?nom=&prenom=chloe&debut=&fin=&departement=&commune=&communeName="  src="https://deces.matchid.io/search?advanced=true&fuzzy=false&fn=chloe&bd=1991&dd=2020-2022"></iframe>-->
+      <span id="t1"></span> last...<br/><span id="t2"></span> more...<br/><span id="t3"></span> total<br/><span id="breakdown"></span><br/><span id="t4"></span> effective...<br/><span id="t5"></span> lost...<br/><span id="t9"></span> since...<br/><br/><!-- <iframe id="iflip" title="I. Flip." width="0" height="0" src="https://www.libramemoria.com/avis?nom=&prenom=chloe&debut=&fin=&departement=&commune=&communeName="  src="https://deces.matchid.io/search?advanced=true&fuzzy=false&fn=chloe&bd=1991&dd=2020-2022"></iframe>-->
       <div id="lost"></div>
     </div><div id="t6" class="pouet"></div><div id="t7" class="pouet"></div><div id="t8" class="pouet"></div>
   </body>
