@@ -62,10 +62,11 @@
         document.getElementById('t4').innerHTML = grad( ms2hms( ( stamps[1] - stamps[0] ) + ( stamps[3] - stamps[2] ) + ( stamps[7] - stamps[6] ), 47, true ), rainbow ); // effective time
         //document.getElementById('t5').innerHTML = grad( ms2hms( ( stamps[2] - stamps[1] ) + ( stamps[6] - stamps[3] ) + ( stamps[4] - stamps[7] ) ), rainbow ); // lost time
         document.getElementById('t9').innerHTML = grad( ms2hms( stamps[7] - stamps[6], 47, true ), rainbow ); // latest presence
-        document.getElementById('t6').innerHTML = grad( longBS, rainbow, true );  //format(longBS);
-        document.getElementById('t7').innerHTML = grad( mediumBS, rainbow, true );//format(mediumBS);
-        document.getElementById('t8').innerHTML = grad( shortBS, rainbow, true ); //format(shortBS);
-
+        if( window.location.href.split('#')[1] != "plain" ) {
+          document.getElementById('t6').innerHTML = grad( longBS, rainbow, true );  //format(longBS);
+          document.getElementById('t7').innerHTML = grad( mediumBS, rainbow, true );//format(mediumBS);
+          document.getElementById('t8').innerHTML = grad( shortBS, rainbow, true ); //format(shortBS);
+        }
         //setTimeout(tick, 1000);
       }
 
