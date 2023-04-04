@@ -4,8 +4,8 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>𝒯𝒾𝒸𝓀</title>
     <link id="favicon" rel="icon" type="image/svg" href='data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64"><style> .letter { font: bold 50px sans-serif; fill: black; paint-order: stroke; stroke: white; stroke-width: 1px; stroke-linecap: butt; stroke-linejoin: miter; text-anchor:middle } </style><text x="32" y="48" class="letter">⏳</text></svg>' />
     <style> /* span#t1, span#t2{ text-decoration: line-through; } */
-      div#lost { display: inline-block; width: 420px; vertical-align: top; margin: 5px; } /* iframe {display: none;} */
-      div#stuff { display: inline-block; width: 420px; vertical-align: top; margin: 5px; }
+      div#lost { display: inline-block; width: 450px; vertical-align: top; margin: 5px; } /* iframe {display: none;} */
+      div#stuff { display: inline-block; width: 450px; vertical-align: top; margin: 5px; font-family: monospace; }
       div.pouet { display: inline-block; text-align: justify; width: 340px; vertical-align: top; margin: 5px; } 
       div.pouet div.b { font-weight: bold; text-decoration: underline; } 
       div.pouet div.d { font-style: italic; text-align: center; font-weight: bold; } 
@@ -22,8 +22,8 @@
       var subs = { "/" : "<br/>", "(" : '<div class="d">', ")" : "</div>", "[" : '<div class="r">', "]" : "</div>", "{" : '<div class="b">', "}" : "</div>" };
       
       function yoda(f,p) { var r; try { r = f.apply(this,p); } catch(e) { return false; } return r; } // there is no fuckin try
-      function zerofill(a,b=2) { return (a.length < b) ? '0'+a : a; } // (a.length > b) ? a.slice(-1*b) : 
-      function x(n) { return zerofill( Math.floor( n + 0.5 ).toString(16) ); }
+      function zfill(a,b=2) { return (''+a).padStart(b,"0"); } //(a.length < b) ? '0'+a : ''+a; | (a.length > b) ? a.slice(-1*b) : 
+      function x(n) { return zfill( Math.floor( n + 0.5 ).toString(16) ); }
       function grad(text,c,format=false) { if( c.length < 2 ) { return ( c.length == 1 ) ? '<span style="color:#' + x(c[0][0]) + x(c[0][1]) + x(c[0][2]) + ';">' + text + '</span>' : text; }
         let stuff = text.split( "" ), step = stuff.length / ( c.length - 1 ), dc0, dc1, dc2;
         if( format ){ for( let i = 0; i < stuff.length; ++i ) { if( subs[stuff[i]] !== undefined ){ stuff[i] = subs[stuff[i]]; } } }
@@ -37,34 +37,44 @@
         for( let i = 0; i < stuff.length; ++i ) { if( subs[stuff[i]] !== undefined ){ stuff[i] = subs[stuff[i]]; } } return stuff.join('');
       }
 
-      function ms2hms(s,f=47) { 
+      function ms2hms(s,f=47,solid=false) {
         let t = ( s < 0 ) ? -1 * s : s, m, r = []; 
-        if( t >= 31556952000 && ( f & 32 ) ) { m = Math.floor( t / 31556952000 ); r.push( m + " year"   + ( ( m > 1 ) ? "s" : "" ) ); t -= ( m * 31556952000 ); }
-        if( t >= 2629746000  && ( f & 16 ) ) { m = Math.floor( t / 2629746000  ); r.push( m + " month"  + ( ( m > 1 ) ? "s" : "" ) ); t -= ( m * 2629746000  ); }
-        if( t >= 86400000    && ( f &  8 ) ) { m = Math.floor( t / 86400000    ); r.push( m + " day"    + ( ( m > 1 ) ? "s" : "" ) ); t -= ( m * 86400000    ); }
-        if( t >= 3600000     && ( f &  4 ) ) { m = Math.floor( t / 3600000     ); r.push( m + " hour"   + ( ( m > 1 ) ? "s" : "" ) ); t -= ( m * 3600000     ); }
-        if( t >= 60000       && ( f &  2 ) ) { m = Math.floor( t / 60000       ); r.push( m + " minute" + ( ( m > 1 ) ? "s" : "" ) ); t -= ( m * 60000       ); }
-        if( t >= 1000        && ( f &  1 ) ) { m = Math.floor( t / 1000        ); r.push( m + " second" + ( ( m > 1 ) ? "s" : "" ) ); t -= ( m * 1000        ); }
+        if( ( t >= 31556952000 || solid ) && ( f & 32 ) ) { m = ''+Math.floor( t / 31556952000 ); r.push( ( solid ? m.padStart( 1, "0" ) : m ) + " year"   + ( ( m > 1 ) ? "s" : ( solid ? " " : "" ) ) ); t -= ( m * 31556952000 ); }
+        if( ( t >= 2629746000  || solid ) && ( f & 16 ) ) { m = ''+Math.floor( t / 2629746000  ); r.push( ( solid ? m.padStart( 2, "0" ) : m ) + " month"  + ( ( m > 1 ) ? "s" : ( solid ? " " : "" ) ) ); t -= ( m * 2629746000  ); }
+        if( ( t >= 86400000    || solid ) && ( f &  8 ) ) { m = ''+Math.floor( t / 86400000    ); r.push( ( solid ? m.padStart( 3, "0" ) : m ) + " day"    + ( ( m > 1 ) ? "s" : ( solid ? " " : "" ) ) ); t -= ( m * 86400000    ); }
+        if( ( t >= 3600000     || solid ) && ( f &  4 ) ) { m = ''+Math.floor( t / 3600000     ); r.push( ( solid ? m.padStart( 2, "0" ) : m ) + " hour"   + ( ( m > 1 ) ? "s" : ( solid ? " " : "" ) ) ); t -= ( m * 3600000     ); }
+        if( ( t >= 60000       || solid ) && ( f &  2 ) ) { m = ''+Math.floor( t / 60000       ); r.push( ( solid ? m.padStart( 2, "0" ) : m ) + " minute" + ( ( m > 1 ) ? "s" : ( solid ? " " : "" ) ) ); t -= ( m * 60000       ); }
+        if( ( t >= 1000        || solid ) && ( f &  1 ) ) { m = ''+Math.floor( t / 1000        ); r.push( ( solid ? m.padStart( 2, "0" ) : m ) + " second" + ( ( m > 1 ) ? "s" : ( solid ? " " : "" ) ) ); t -= ( m * 1000        ); }
         return r.join(', ');
       }
       //function readable(v) { var r = ( v < 0 ) ? v + 4294967296 : v; return ( r > 562949953421312 ) ? ( r / 1125899906842624. ).toFixed(2) + " P": ( r > 549755813888 ) ? ( r / 1099511627776. ).toFixed(2) + " T": ( r > 536870912 ) ? ( r / 1073741824. ).toFixed(2) + " G": ( r > 524288 ) ? ( r / 1048576. ).toFixed(2) + " M": ( r > 512 ) ? ( r / 1024. ).toFixed(2) + " K": r; }
-      function init(){ let d = [ 1, 2, 4, 8, 16, 32 ], b = [ [], [], [], [] ]; //flip();
-        for( let i = 0; i < d.length; ++i ) {
-          b[0].push( grad( ms2hms( stamps[4] - stamps[0], d[i] ), rainbow ) );
-          b[1].push( grad( ms2hms( stamps[4] - stamps[3], d[i] ), rainbow ) );
-          b[2].push( grad( ms2hms( stamps[5] - stamps[4], d[i] ), rainbow ) );
-          b[3].push( grad( ms2hms( stamps[6] - stamps[4], d[i] ), rainbow ) );
-        }
-        document.getElementById('breakdown').innerHTML = '<br/>' + [ b[0].join('<br/>'), b[1].join('<br/>'), b[2].join('<br/>'), b[3].join('<br/>') ].join('<br/><br/>') + '<br/>';
-        document.getElementById('t1').innerHTML = grad( ms2hms( stamps[4] - stamps[7] ), rainbow ); // latest absence
-        document.getElementById('t2').innerHTML = grad( ms2hms( stamps[5] - stamps[4] ), rainbow ); // until expire
-        document.getElementById('t3').innerHTML = grad( ms2hms( stamps[4] - stamps[0] ), rainbow ); // total time
-        document.getElementById('t4').innerHTML = grad( ms2hms( ( stamps[1] - stamps[0] ) + ( stamps[3] - stamps[2] ) + ( stamps[7] - stamps[6] ) ), rainbow ); // effective time
-        document.getElementById('t5').innerHTML = grad( ms2hms( ( stamps[2] - stamps[1] ) + ( stamps[6] - stamps[3] ) + ( stamps[4] - stamps[7] ) ), rainbow ); // lost time
-        document.getElementById('t9').innerHTML = grad( ms2hms( stamps[7] - stamps[6] ), rainbow ); // latest presence
-        document.getElementById('t6').innerHTML = grad( longBS, rainbow, true );//format(longBS);
-        document.getElementById('t7').innerHTML = grad( mediumBS, rainbow, true );//format(longBS);
-        document.getElementById('t8').innerHTML = grad( shortBS, rainbow, true );//format(longBS);
+      function init(){ let d = [ 1, 2, 4, 8, 16, 32 ], b = [ [], [], [], [] ]; tick(); //flip();
+        //for( let i = 0; i < d.length; ++i ) {
+        //  b[0].push( grad( ms2hms( stamps[4] - stamps[0], d[i] ), rainbow ) );
+        //  b[1].push( grad( ms2hms( stamps[4] - stamps[3], d[i] ), rainbow ) );
+        //  b[2].push( grad( ms2hms( stamps[5] - stamps[4], d[i] ), rainbow ) );
+        //  b[3].push( grad( ms2hms( stamps[6] - stamps[4], d[i] ), rainbow ) );
+        //}
+        //document.getElementById('breakdown').innerHTML = '<br/>' + [ b[0].join('<br/>'), b[1].join('<br/>'), b[2].join('<br/>'), b[3].join('<br/>') ].join('<br/><br/>') + '<br/>';
+        //document.getElementById('t1').innerHTML = grad( ms2hms( stamps[4] - stamps[7] ), rainbow ); // latest absence
+        //document.getElementById('t2').innerHTML = grad( ms2hms( stamps[5] - stamps[4] ), rainbow ); // until expire
+        //document.getElementById('t3').innerHTML = grad( ms2hms( stamps[4] - stamps[0] ), rainbow ); // total time
+        document.getElementById('t4').innerHTML = grad( ms2hms( ( stamps[1] - stamps[0] ) + ( stamps[3] - stamps[2] ) + ( stamps[7] - stamps[6] ), 47, true ), rainbow ); // effective time
+        //document.getElementById('t5').innerHTML = grad( ms2hms( ( stamps[2] - stamps[1] ) + ( stamps[6] - stamps[3] ) + ( stamps[4] - stamps[7] ) ), rainbow ); // lost time
+        document.getElementById('t9').innerHTML = grad( ms2hms( stamps[7] - stamps[6], 47, true ), rainbow ); // latest presence
+        document.getElementById('t6').innerHTML = grad( longBS, rainbow, true );  //format(longBS);
+        document.getElementById('t7').innerHTML = grad( mediumBS, rainbow, true );//format(mediumBS);
+        document.getElementById('t8').innerHTML = grad( shortBS, rainbow, true ); //format(shortBS);
+
+        //setTimeout(tick, 1000);
+      }
+
+      function tick() { let now = Date.now();
+        document.getElementById('t1').innerHTML = grad( ms2hms( now - stamps[7], 47, true ), rainbow ); // latest absence
+        document.getElementById('t2').innerHTML = grad( ms2hms( stamps[5] - now, 47, true ), rainbow ); // until expire
+        document.getElementById('t3').innerHTML = grad( ms2hms( now - stamps[0], 47, true ), rainbow ); // total time
+        document.getElementById('t5').innerHTML = grad( ms2hms( ( stamps[2] - stamps[1] ) + ( stamps[6] - stamps[3] ) + ( now - stamps[7] ), 47, true ), rainbow ); // lost time
+        setTimeout(tick, 1000); //console.log("ticked");
       }
 
       //function randStuff(n) { r = ""; for( var i = 0; i < n; ++i ) { r += Math.floor( Math.random() * 10 ); } return r; }
@@ -125,8 +135,7 @@
   </head>
   <body onload="init();">
     <div id="stuff">
-      <span id="t1"></span> missing...<br/><span id="t2"></span> more...<br/><span id="t3"></span> total<br/><span id="t4"></span> effective...<br/><span id="t5"></span> lost...<br/><span id="t9"></span> lasted...<br/><span id="breakdown"></span><br/><br/><!-- <iframe id="iflip" title="I. Flip." width="0" height="0" src="https://www.libramemoria.com/avis?nom=&prenom=chloe&debut=&fin=&departement=&commune=&communeName="  src="https://deces.matchid.io/search?advanced=true&fuzzy=false&fn=chloe&bd=1991&dd=2020-2022"></iframe>-->
-      <div id="lost"></div>
+      <span id="t1"></span> missing...<br/><span id="t2"></span> more...<br/><span id="t3"></span> total<br/><span id="t4"></span> effective...<br/><span id="t5"></span> lost...<br/><span id="t9"></span> lasted...<br/><!-- <span id="breakdown"></span><br/><br/><div id="lost"></div>-->
     </div><div id="t6" class="pouet"></div><div id="t7" class="pouet"></div><div id="t8" class="pouet"></div>
   </body>
 </html>
