@@ -6,7 +6,7 @@
     <style> /* span#t1, span#t2{ text-decoration: line-through; } */
       body { --nowInPx : 0; }
       div#lost { display: inline-block; width: 450px; vertical-align: top; margin: 5px; } /* iframe {display: none;} */
-      div#stuff { display: inline-block; width: 450px; vertical-align: top; margin: 5px; font-family: monospace; }
+      div#stuff { display: inline-block; width: 450px; vertical-align: top; margin: 5px; font-family: monospace; overflow: hidden; }
       div#lifeLine { display: inline-block; width: 500px; height: 25px; vertical-align: top; margin: 5px 0 0 0; font-family: monospace; } div#lifeLine div { display: inline-block; height: 25px; }
       div#lifeLine div.ll0 { background-color: green; } div#lifeLine div.ll1 { background-color: red; } div#lifeLine div.ll2 { background-color: purple; } div#lifeLine div.ll3 { background-color: black; }
       div.pouet { display: inline-block; text-align: justify; width: 340px; vertical-align: top; margin: 5px; } 
@@ -15,7 +15,7 @@
       div.pouet div.r { text-align: right; }
     </style>
     <script type="text/javascript">
-      var rainbow = [ [ 0, 0, 0 ], [ 255, 0, 0 ], [ 255, 255, 0 ], [ 0, 255, 0 ], [ 0, 255, 255 ], [ 0, 0, 255 ], [ 0, 0, 0 ] ], lineLength = 420;
+      var rainbow = [ [ 0, 0, 0 ], [ 255, 0, 0 ], [ 255, 255, 0 ], [ 0, 255, 0 ], [ 0, 255, 255 ], [ 0, 0, 255 ], [ 0, 0, 0 ] ], lineLength = 450;
       //             first contact   first loss    first comeback  second loss  second comeback   third loss
       var stamps = [ 1569775077050, 1579089209296, 1586350342726, 1594062904960, 1649687400151, 1675717795701 ], endStamp = 1766491200000, pxStep = ( ( endStamp - stamps[0] ) / lineLength );
       //                   0              1              2              3              4              5 
