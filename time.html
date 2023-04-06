@@ -95,7 +95,7 @@
         return newLine;
       }
 
-      function sec2px( sec ) { return ( sec - stamps[0] ) / pxStep; } 
+      function sec2px( sec ) { return Math.floor( ( sec - stamps[0] ) / pxStep ); } 
 
       function drawTimeLine() { let newLine; document.getElementById( 'lifeLine' ).style.width = lineLength + 'px';
         for( let i = 0; i < stamps.length - 1 ; ++i ) {
