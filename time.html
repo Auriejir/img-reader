@@ -15,7 +15,7 @@
       div.pouet div.r { text-align: right; }
     </style>
     <script type="text/javascript">
-      var rainbow = [ [ 0, 0, 0 ], [ 255, 0, 0 ], [ 255, 255, 0 ], [ 0, 255, 0 ], [ 0, 255, 255 ], [ 0, 0, 255 ], [ 0, 0, 0 ] ], lineLength = 450;
+      var rainbow = [ [ 0, 0, 0 ], [ 255, 0, 0 ], [ 255, 255, 0 ], [ 0, 255, 0 ], [ 0, 255, 255 ], [ 0, 0, 255 ], [ 0, 0, 0 ] ], lineLength = 420;
       //             first contact   first loss    first comeback  second loss  second comeback   third loss
       var stamps = [ 1569775077050, 1579089209296, 1586350342726, 1594062904960, 1649687400151, 1675717795701 ], endStamp = 1766491200000, pxStep = ( ( endStamp - stamps[0] ) / lineLength );
       //                   0              1              2              3              4              5 
@@ -169,7 +169,7 @@
   </head>
   <body onload="init();">
     <div id="stuff">
-      <span id="t1"></span> missing...<br/><span id="t2"></span> more...<br/><span id="t3"></span> total<br/><span id="t4"></span> effective...<br/><span id="t5"></span> lost...<br/><span id="t9"></span> lasted...<br/><!-- <span id="breakdown"></span><br/><br/><div id="lost"></div>--><div id="lifeLine"></div>
+      <span id="t1"></span> missing...<br/><span id="t2"></span> left...<br/><span id="t3"></span> total<br/><span id="t4"></span> effective<br/><span id="t5"></span> lost...<br/><span id="t9"></span> longest...<br/><!-- <span id="breakdown"></span><br/><br/><div id="lost"></div>--><div id="lifeLine"></div>
     </div><div id="t6" class="pouet"></div><div id="t7" class="pouet"></div><div id="t8" class="pouet"></div>
     
   </body>
