@@ -69,7 +69,7 @@
           document.getElementById('t6').innerHTML = grad( longBS, rainbow, true );  //format(longBS);
           document.getElementById('t7').innerHTML = grad( mediumBS, rainbow, true );//format(mediumBS);
           document.getElementById('t8').innerHTML = grad( shortBS, rainbow, true ); //format(shortBS);
-        } drawTimeLine();
+        } drawTimeLine(); document.getElementById('lllabel').innerHTML = ms2hms(pxStep);
         //setTimeout(tick, 1000);
       }
 
@@ -169,7 +169,7 @@
   </head>
   <body onload="init();">
     <div id="stuff">
-      <span id="t1"></span> missing...<br/><span id="t2"></span> left...<br/><span id="t3"></span> total<br/><span id="t4"></span> effective<br/><span id="t5"></span> lost...<br/><span id="t9"></span> longest...<br/><!-- <span id="breakdown"></span><br/><br/><div id="lost"></div>--><div id="lifeLine"></div>
+      <span id="t1"></span> missing...<br/><span id="t2"></span> left...<br/><span id="t3"></span> total<br/><span id="t4"></span> effective<br/><span id="t5"></span> lost...<br/><span id="t9"></span> longest...<br/><!-- <span id="breakdown"></span><br/><br/><div id="lost"></div>--><div id="lifeLine"></div><br/>( <span id="lllabel"></span> per pixel )
     </div><div id="t6" class="pouet"></div><div id="t7" class="pouet"></div><div id="t8" class="pouet"></div>
     
   </body>
