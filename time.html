@@ -4,11 +4,12 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>𝒯𝒾𝒸𝓀</title>
     <link id="favicon" rel="icon" type="image/svg" href='data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64"><style> .letter { font: bold 50px sans-serif; fill: black; paint-order: stroke; stroke: white; stroke-width: 1px; stroke-linecap: butt; stroke-linejoin: miter; text-anchor:middle } </style><text x="32" y="48" class="letter">⏳</text></svg>' />
     <style> /* span#t1, span#t2{ text-decoration: line-through; } */
-      body { --nowInPx : 0; }
+      body { --nowInPx : 0; --nowInDeg : 0 }
       div#lost { display: inline-block; width: 450px; vertical-align: top; margin: 5px; } /* iframe {display: none;} */
       div#stuff { display: inline-block; width: 450px; vertical-align: top; margin: 5px; font-family: monospace; overflow: hidden; }
       div#lifeLine { display: inline-block; width: 500px; height: 25px; vertical-align: top; margin: 5px 0 0 0; font-family: monospace; } div#lifeLine div { display: inline-block; height: 25px; }
       div#lifeLine div.ll0 { background-color: green; } div#lifeLine div.ll1 { background-color: red; } div#lifeLine div.ll2 { background-color: purple; } div#lifeLine div.ll3 { background-color: black; }
+      div#wheeloflife { display: inline-block; width: 500px; height: 500px; vertical-align: top; margin: 5px 0 0 0; font-family: monospace; border-radius: 50%; mask: radial-gradient(farthest-side,#0000 90%, #000 95%); }
       div.pouet { display: inline-block; text-align: justify; width: 340px; vertical-align: top; margin: 5px; } 
       div.pouet div.b { font-weight: bold; text-decoration: underline; } 
       div.pouet div.d { font-style: italic; text-align: center; font-weight: bold; } 
@@ -17,7 +18,7 @@
     <script type="text/javascript">
       var rainbow = [ [ 0, 0, 0 ], [ 255, 0, 0 ], [ 255, 255, 0 ], [ 0, 255, 0 ], [ 0, 255, 255 ], [ 0, 0, 255 ], [ 0, 0, 0 ] ], lineLength = 420;
       //             first contact   first loss    first comeback  second loss  second comeback   third loss
-      var stamps = [ 1569775077050, 1579089209296, 1586350342726, 1594062904960, 1649687400151, 1675717795701 ], endStamp = 1766491200000, pxStep = ( ( endStamp - stamps[0] ) / lineLength );
+      var stamps = [ 1569775077050, 1579089209296, 1586350342726, 1594062904960, 1649687400151, 1675717795701 ], endStamp = 1766491200000, pxStep = ( ( endStamp - stamps[0] ) / lineLength ), degStep = ( ( endStamp - stamps[0] ) / 360 );
       //                   0              1              2              3              4              5 
       var longBS = "{ Paris } O, I am slain! ( Falls. ) [ If thou be merciful, ] Open the tomb, lay me with Juliet. ( Dies. ) / { Romeo } In faith, I will. Let me peruse this face. / Mercutio’s kinsman, noble County Paris! / What said my man, when my betossed soul / Did not attend him as we rode? I think / He told me Paris should have married Juliet. / Said he not so? Or did I dream it so? / Or am I mad, hearing him talk of Juliet, / To think it was so? O, give me thy hand, / One writ with me in sour misfortune’s book! / I’ll bury thee in a triumphant grave. / A grave? O no, a lantern, slaught’red youth; / For here lies Juliet, and her beauty makes / This vault a feasting presence full of light. / Death, lie thou there, by a dead man interr’d. / ( Laying Paris in the tomb. )  How oft when men are at the point of death / Have they been merry, which their keepers call / A lightning before death! O how may I / Call this a lightning? O my love, my wife, / Death, that hath suck’d the honey of thy breath, / Hath had no power yet upon thy beauty: / Thou art not conquer’d, beauty’s ensign yet / Is crimson in thy lips and in thy cheeks, / And death’s pale flag is not advanced there. / Tybalt, liest thou there in thy bloody sheet? / O, what more favor can I do to thee, / Than with that hand that cut thy youth in twain / To sunder his that was thine enemy? / Forgive me, cousin! Ah, dear Juliet, / Why art thou yet so fair? Shall I believe / That unsubstantial Death is amorous, / And that the lean abhorred monster keeps / Thee here in dark to be his paramour? / For fear of that, I still will stay with thee, / And never from this palace of dim night / Depart again. Here, here will I remain / With worms that are thy chambermaids; O, here / Will I set up my everlasting rest, / And shake the yoke of inauspicious stars / From this world-wearied flesh. Eyes, look your last! / Arms, take your last embrace! And, lips, O you / The doors of breath, seal with a righteous kiss / A dateless bargain to engrossing death! / Come, bitter conduct, come, unsavory guide! / Thou desperate pilot, now at once run on / The dashing rocks thy sea-sick weary bark! / Here’s to my love! ( Drinks. ) [ O true apothecary! ] / Thy drugs are quick. Thus with a kiss I die. / ( Dies. )";
       var mediumBS = "{ Juliet } Go get thee hence, for I will not away. / What’s here? A cup clos’d in my true love’s hand? / Poison, I see, hath been his timeless end. / O churl, drunk all, and left no friendly drop / To help me after? I will kiss thy lips, / Haply some poison yet doth hang on them, / To make me die with a restorative. / Thy lips are warm. // { First Watchman } ( Within. ) [ Lead, boy, which way? ] / { Juliet } Yea, noise? Then I’ll be brief. O happy dagger, ( Taking Romeo’s dagger. ) This is thy sheath; ( Stabs herself. ) [there rust, and let me die.] ( Falls on Romeo’s body and dies. ) ";
@@ -69,11 +70,11 @@
           document.getElementById('t6').innerHTML = grad( longBS, rainbow, true );  //format(longBS);
           document.getElementById('t7').innerHTML = grad( mediumBS, rainbow, true );//format(mediumBS);
           document.getElementById('t8').innerHTML = grad( shortBS, rainbow, true ); //format(shortBS);
-        } drawTimeLine(); document.getElementById('lllabel').innerHTML = ms2hms(pxStep);
+        } drawTimeLine(); drawTimeCheese(); document.getElementById('lllabel').innerHTML = ms2hms(pxStep);
         //setTimeout(tick, 1000);
       }
 
-      function tick() { let now = Date.now(); document.body.style.setProperty('--nowInPx', sec2px( now ) + 'px' );
+      function tick() { let now = Date.now(); document.body.style.setProperty('--nowInPx', sec2px( now ) + 'px' ); document.body.style.setProperty('--nowInDeg', sec2deg( now ) + 'deg' );
         document.getElementById('t1').innerHTML = grad( ms2hms( now - stamps[ stamps.length - 1 ], 47, true ), rainbow ); // latest absence
         document.getElementById('t2').innerHTML = grad( ms2hms( endStamp - now, 47, true ), rainbow ); // until expire
         document.getElementById('t3').innerHTML = grad( ms2hms( now - stamps[0], 47, true ), rainbow ); // total time
@@ -96,6 +97,7 @@
       }
 
       function sec2px( sec ) { return Math.floor( ( sec - stamps[0] ) / pxStep ); } 
+      function sec2deg( sec ){ return ( sec - stamps[0] ) / degStep; }
 
       function drawTimeLine() { let newLine; document.getElementById( 'lifeLine' ).style.width = lineLength + 'px';
         for( let i = 0; i < stamps.length - 1 ; ++i ) {
@@ -108,6 +110,16 @@
         newLine = document.getElementById( 'lifeLine' ).appendChild( document.createElement( 'div' ) ); newLine.id = 'll-remaining'; 
         newLine.className = 'll3'; newLine.style.width = 'calc( ' + lineLength + 'px - var(--nowInPx) )';
       }
+
+      function drawTimeCheese() { let colorMap = [ "green", "red" ], wheelfill = [];
+        for( let i = 0; i < stamps.length - 1 ; ++i ) { 
+          wheelfill.push( colorMap[i%colorMap.length] + " " + sec2deg( stamps[i] ) + "deg " + sec2deg( stamps[i+1] ) + "deg" );
+        } wheelfill.push( colorMap[( stamps.length - 1 )%colorMap.length] + " " + sec2deg( stamps[stamps.length-1] ) + "deg var(--nowInDeg), black var(--nowInDeg)" );
+        document.getElementById( 'wheeloflife' ).style.width = lineLength + 'px'; document.getElementById( 'wheeloflife' ).style.height = lineLength + 'px';
+        document.getElementById( 'wheeloflife' ).style.background = "conic-gradient( " + wheelfill.join(", ") + " )";
+      }// conic-gradient( red 6deg, orange 6deg 18deg, yellow 18deg 45deg);
+
+
       //newLine.style.left = 'var(--nowInPx)'; newLine.style.top = '0px'; newLine.style.height = '50px'; 
       //newLine.style.left = sec2px( stamps[i] ) + 'px'; newLine.style.top = '0px'; newLine.style.height = '50px'; 
 
@@ -169,7 +181,7 @@
   </head>
   <body onload="init();">
     <div id="stuff">
-      <span id="t1"></span> missing...<br/><span id="t2"></span> left...<br/><span id="t3"></span> total<br/><span id="t4"></span> effective<br/><span id="t5"></span> lost...<br/><span id="t9"></span> longest...<br/><!-- <span id="breakdown"></span><br/><br/><div id="lost"></div>--><div id="lifeLine"></div><br/>( <span id="lllabel"></span> per pixel )
+      <span id="t1"></span> missing...<br/><span id="t2"></span> left...<br/><span id="t3"></span> total<br/><span id="t4"></span> effective<br/><span id="t5"></span> lost...<br/><span id="t9"></span> longest...<br/><!-- <span id="breakdown"></span><br/><br/><div id="lost"></div>--><div id="lifeLine"></div><br/>( <span id="lllabel"></span> per pixel )<div id="wheeloflife"></div>
     </div><div id="t6" class="pouet"></div><div id="t7" class="pouet"></div><div id="t8" class="pouet"></div>
     
   </body>
