@@ -4,7 +4,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>𝒯𝒾𝒸𝓀</title>
     <link id="favicon" rel="icon" type="image/svg" href='data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64"><style> .letter { font: bold 50px sans-serif; fill: black; paint-order: stroke; stroke: white; stroke-width: 1px; stroke-linecap: butt; stroke-linejoin: miter; text-anchor:middle } </style><text x="32" y="48" class="letter">⏳</text></svg>' />
     <style> /* span#t1, span#t2{ text-decoration: line-through; } */
-      body { --nowInPx : 0; --nowInDeg : 0 }
+      body { --nowInPx : 0; --nowInDeg : 0; --nowInPer : 0 }
       div#lost { display: inline-block; width: 450px; vertical-align: top; margin: 5px; } /* iframe {display: none;} */
       div#stuff { display: inline-block; width: 450px; vertical-align: top; margin: 5px; font-family: monospace; overflow: hidden; }
       div#lifeLine { display: inline-block; width: 500px; height: 25px; vertical-align: top; margin: 5px 0 0 0; font-family: monospace; } div#lifeLine div { display: inline-block; height: 25px; }
@@ -18,7 +18,7 @@
     <script type="text/javascript">
       var rainbow = [ [ 0, 0, 0 ], [ 255, 0, 0 ], [ 255, 255, 0 ], [ 0, 255, 0 ], [ 0, 255, 255 ], [ 0, 0, 255 ], [ 0, 0, 0 ] ], lineLength = 420;
       //             first contact   first loss    first comeback  second loss  second comeback   third loss
-      var stamps = [ 1569775077050, 1579089209296, 1586350342726, 1594062904960, 1649687400151, 1675717795701 ], endStamp = 1766491200000, pxStep = ( ( endStamp - stamps[0] ) / lineLength ), degStep = ( ( endStamp - stamps[0] ) / 360 );
+      var stamps = [ 1569775077050, 1579089209296, 1586350342726, 1594062904960, 1649687400151, 1675717795701 ], endStamp = 1766491200000, pxStep = ( ( endStamp - stamps[0] ) / lineLength ), degStep = ( ( endStamp - stamps[0] ) / 360. ), perStep = ( ( endStamp - stamps[0] ) / 100. );
       //                   0              1              2              3              4              5 
       var longBS = "{ Paris } O, I am slain! ( Falls. ) [ If thou be merciful, ] Open the tomb, lay me with Juliet. ( Dies. ) / { Romeo } In faith, I will. Let me peruse this face. / Mercutio’s kinsman, noble County Paris! / What said my man, when my betossed soul / Did not attend him as we rode? I think / He told me Paris should have married Juliet. / Said he not so? Or did I dream it so? / Or am I mad, hearing him talk of Juliet, / To think it was so? O, give me thy hand, / One writ with me in sour misfortune’s book! / I’ll bury thee in a triumphant grave. / A grave? O no, a lantern, slaught’red youth; / For here lies Juliet, and her beauty makes / This vault a feasting presence full of light. / Death, lie thou there, by a dead man interr’d. / ( Laying Paris in the tomb. )  How oft when men are at the point of death / Have they been merry, which their keepers call / A lightning before death! O how may I / Call this a lightning? O my love, my wife, / Death, that hath suck’d the honey of thy breath, / Hath had no power yet upon thy beauty: / Thou art not conquer’d, beauty’s ensign yet / Is crimson in thy lips and in thy cheeks, / And death’s pale flag is not advanced there. / Tybalt, liest thou there in thy bloody sheet? / O, what more favor can I do to thee, / Than with that hand that cut thy youth in twain / To sunder his that was thine enemy? / Forgive me, cousin! Ah, dear Juliet, / Why art thou yet so fair? Shall I believe / That unsubstantial Death is amorous, / And that the lean abhorred monster keeps / Thee here in dark to be his paramour? / For fear of that, I still will stay with thee, / And never from this palace of dim night / Depart again. Here, here will I remain / With worms that are thy chambermaids; O, here / Will I set up my everlasting rest, / And shake the yoke of inauspicious stars / From this world-wearied flesh. Eyes, look your last! / Arms, take your last embrace! And, lips, O you / The doors of breath, seal with a righteous kiss / A dateless bargain to engrossing death! / Come, bitter conduct, come, unsavory guide! / Thou desperate pilot, now at once run on / The dashing rocks thy sea-sick weary bark! / Here’s to my love! ( Drinks. ) [ O true apothecary! ] / Thy drugs are quick. Thus with a kiss I die. / ( Dies. )";
       var mediumBS = "{ Juliet } Go get thee hence, for I will not away. / What’s here? A cup clos’d in my true love’s hand? / Poison, I see, hath been his timeless end. / O churl, drunk all, and left no friendly drop / To help me after? I will kiss thy lips, / Haply some poison yet doth hang on them, / To make me die with a restorative. / Thy lips are warm. // { First Watchman } ( Within. ) [ Lead, boy, which way? ] / { Juliet } Yea, noise? Then I’ll be brief. O happy dagger, ( Taking Romeo’s dagger. ) This is thy sheath; ( Stabs herself. ) [there rust, and let me die.] ( Falls on Romeo’s body and dies. ) ";
@@ -74,7 +74,7 @@
         //setTimeout(tick, 1000);
       }
 
-      function tick() { let now = Date.now(); document.body.style.setProperty('--nowInPx', sec2px( now ) + 'px' ); document.body.style.setProperty('--nowInDeg', sec2deg( now ) + 'deg' );
+      function tick() { let now = Date.now(); document.body.style.setProperty('--nowInPx', sec2px( now ) + 'px' ); document.body.style.setProperty('--nowInDeg', sec2deg( now ) + 'deg' ); document.body.style.setProperty('--nowInPer', sec2per( now ) + '%' );
         document.getElementById('t1').innerHTML = grad( ms2hms( now - stamps[ stamps.length - 1 ], 47, true ), rainbow ); // latest absence
         document.getElementById('t2').innerHTML = grad( ms2hms( endStamp - now, 47, true ), rainbow ); // until expire
         document.getElementById('t3').innerHTML = grad( ms2hms( now - stamps[0], 47, true ), rainbow ); // total time
@@ -98,17 +98,25 @@
 
       function sec2px( sec ) { return Math.floor( ( sec - stamps[0] ) / pxStep ); } 
       function sec2deg( sec ){ return ( sec - stamps[0] ) / degStep; }
+      function sec2per( sec ){ return ( sec - stamps[0] ) / perStep; }
 
-      function drawTimeLine() { let newLine; document.getElementById( 'lifeLine' ).style.width = lineLength + 'px';
-        for( let i = 0; i < stamps.length - 1 ; ++i ) {
-          newLine = document.getElementById( 'lifeLine' ).appendChild( document.createElement( 'div' ) ); newLine.id = 'll-' + i + '-' + ( i + 1 ); 
-          newLine.className = 'll' + i%2; newLine.style.width = ( sec2px( stamps[i+1] ) - sec2px( stamps[i] ) ) + 'px';
-        } 
-        newLine = document.getElementById( 'lifeLine' ).appendChild( document.createElement( 'div' ) ); newLine.id = 'll-' + ( stamps.length - 1 ) + '-now'; 
-        newLine.className = 'll' + ( stamps.length - 1 )%2; newLine.style.width = 'calc( var(--nowInPx) - ' + sec2px( stamps[ stamps.length - 1 ] ) + 'px )';
+      //function drawTimeLine() { let newLine; document.getElementById( 'lifeLine' ).style.width = lineLength + 'px';
+      //  for( let i = 0; i < stamps.length - 1 ; ++i ) {
+      //    newLine = document.getElementById( 'lifeLine' ).appendChild( document.createElement( 'div' ) ); newLine.id = 'll-' + i + '-' + ( i + 1 ); 
+      //    newLine.className = 'll' + i%2; newLine.style.width = ( sec2px( stamps[i+1] ) - sec2px( stamps[i] ) ) + 'px';
+      //  } 
+      //  newLine = document.getElementById( 'lifeLine' ).appendChild( document.createElement( 'div' ) ); newLine.id = 'll-' + ( stamps.length - 1 ) + '-now'; 
+      //  newLine.className = 'll' + ( stamps.length - 1 )%2; newLine.style.width = 'calc( var(--nowInPx) - ' + sec2px( stamps[ stamps.length - 1 ] ) + 'px )';
+      //
+      //  newLine = document.getElementById( 'lifeLine' ).appendChild( document.createElement( 'div' ) ); newLine.id = 'll-remaining'; 
+      //  newLine.className = 'll3'; newLine.style.width = 'calc( ' + lineLength + 'px - var(--nowInPx) )';
+      //}
 
-        newLine = document.getElementById( 'lifeLine' ).appendChild( document.createElement( 'div' ) ); newLine.id = 'll-remaining'; 
-        newLine.className = 'll3'; newLine.style.width = 'calc( ' + lineLength + 'px - var(--nowInPx) )';
+      function drawTimeLine() { let colorMap = [ "green", "red" ], barfill = []; document.getElementById( 'lifeLine' ).style.width = lineLength + 'px';
+        for( let i = 0; i < stamps.length - 1 ; ++i ) { 
+          barfill.push( colorMap[i%colorMap.length] + " " + sec2per( stamps[i] ) + "% " + sec2per( stamps[i+1] ) + "%" );
+        } barfill.push( colorMap[( stamps.length - 1 )%colorMap.length] + " " + sec2per( stamps[stamps.length-1] ) + "% var(--nowInPer), black var(--nowInPer)" );
+        document.getElementById( 'lifeLine' ).style.background = "linear-gradient( to right, " + barfill.join(", ") + " )";
       }
 
       function drawTimeCheese() { let colorMap = [ "green", "red" ], wheelfill = [];
