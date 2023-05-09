@@ -10,6 +10,35 @@
       div#lifeLine { display: inline-block; width: 500px; height: 25px; vertical-align: top; margin: 5px 0 0 0; font-family: monospace; } div#lifeLine div { display: inline-block; height: 25px; }
       div#lifeLine div.ll0 { background-color: green; } div#lifeLine div.ll1 { background-color: red; } div#lifeLine div.ll2 { background-color: purple; } div#lifeLine div.ll3 { background-color: black; }
       div#wheeloflife { display: inline-block; width: 500px; height: 500px; vertical-align: top; margin: 5px 0 0 0; font-family: monospace; border-radius: 50%; mask: radial-gradient(farthest-side,#0000 90%, #000 95%); }
+      div#squareoffortune { display: inline-block; width: 450px; height: 450px; vertical-align: top; margin: 5px 0 0 0; font-family: monospace; animation: spin 1s linear 0s infinite; background : conic-gradient( green 0% 10%, red 10% 20%, green 20% 30%, red 30% 40%, green 40% 50%, red 50% 60%, green 60% 70%, red 70% 80%, green 80% 90%, red 90% 100% ); border-radius: 50%; mask: radial-gradient(farthest-side,#0000 90%, #000 95%); }
+      @keyframes spin { 
+        0.00% { background : conic-gradient( red 000.00% 014.29%, orange 014.29% 028.57%, yellow 028.57% 042.86%, green 042.86% 057.14%, cyan 057.14% 071.43%, blue 071.43% 085.71%, violet 085.71% 100.00% ) } 
+        4.00% { background : conic-gradient( violet 0% 003.99%, red 004.00% 018.29%, orange 018.29% 032.57%, yellow 032.57% 046.86%, green 046.86% 061.14%, cyan 061.14% 075.43%, blue 075.43% 089.71%, violet 089.71% 100% ) } 
+        8.00% { background : conic-gradient( violet 0% 007.99%, red 008.00% 022.29%, orange 022.29% 036.57%, yellow 036.57% 050.86%, green 050.86% 065.14%, cyan 065.14% 079.43%, blue 079.43% 093.71%, violet 093.71% 100% ) } 
+        12.00% { background : conic-gradient( violet 0% 011.99%, red 012.00% 026.29%, orange 026.29% 040.57%, yellow 040.57% 054.86%, green 054.86% 069.14%, cyan 069.14% 083.43%, blue 083.43% 097.71%, violet 097.71% 100% ) } 
+        16.00% { background : conic-gradient( blue 0% 001.70%, violet 001.70% 015.99%, red 016.00% 030.29%, orange 030.29% 044.57%, yellow 044.57% 058.86%, green 058.86% 073.14%, cyan 073.14% 087.43%, blue 087.43% 100% ) } 
+        20.00% { background : conic-gradient( blue 0% 005.70%, violet 005.70% 019.99%, red 020.00% 034.29%, orange 034.29% 048.57%, yellow 048.57% 062.86%, green 062.86% 077.14%, cyan 077.14% 091.43%, blue 091.43% 100% ) } 
+        24.00% { background : conic-gradient( blue 0% 009.70%, violet 009.70% 023.99%, red 024.00% 038.29%, orange 038.29% 052.57%, yellow 052.57% 066.86%, green 066.86% 081.14%, cyan 081.14% 095.43%, blue 095.43% 100% ) } 
+        28.00% { background : conic-gradient( blue 0% 013.70%, violet 013.70% 027.99%, red 028.00% 042.29%, orange 042.29% 056.57%, yellow 056.57% 070.86%, green 070.86% 085.14%, cyan 085.14% 099.43%, blue 099.43% 100% ) } 
+        32.00% { background : conic-gradient( cyan 0% 003.42%, blue 003.42% 017.70%, violet 017.70% 031.99%, red 032.00% 046.29%, orange 046.29% 060.57%, yellow 060.57% 074.86%, green 074.86% 089.14%, cyan 089.14% 100% ) } 
+        36.00% { background : conic-gradient( cyan 0% 007.42%, blue 007.42% 021.70%, violet 021.70% 035.99%, red 036.00% 050.29%, orange 050.29% 064.57%, yellow 064.57% 078.86%, green 078.86% 093.14%, cyan 093.14% 100% ) } 
+        40.00% { background : conic-gradient( cyan 0% 011.42%, blue 011.42% 025.70%, violet 025.70% 039.99%, red 040.00% 054.29%, orange 054.29% 068.57%, yellow 068.57% 082.86%, green 082.86% 097.14%, cyan 097.14% 100% ) } 
+        44.00% { background : conic-gradient( green 0% 001.13%, cyan 001.13% 015.42%, blue 015.42% 029.70%, violet 029.70% 043.99%, red 044.00% 058.29%, orange 058.29% 072.57%, yellow 072.57% 086.86%, green 086.86% 100% ) } 
+        48.00% { background : conic-gradient( green 0% 005.13%, cyan 005.13% 019.42%, blue 019.42% 033.70%, violet 033.70% 047.99%, red 048.00% 062.29%, orange 062.29% 076.57%, yellow 076.57% 090.86%, green 090.86% 100% ) } 
+        52.00% { background : conic-gradient( green 0% 009.13%, cyan 009.13% 023.42%, blue 023.42% 037.70%, violet 037.70% 051.99%, red 052.00% 066.29%, orange 066.29% 080.57%, yellow 080.57% 094.86%, green 094.86% 100% ) } 
+        56.00% { background : conic-gradient( green 0% 013.13%, cyan 013.13% 027.42%, blue 027.42% 041.70%, violet 041.70% 055.99%, red 056.00% 070.29%, orange 070.29% 084.57%, yellow 084.57% 098.86%, green 098.86% 100% ) } 
+        60.00% { background : conic-gradient( yellow 0% 002.85%, green 002.85% 017.13%, cyan 017.13% 031.42%, blue 031.42% 045.70%, violet 045.70% 059.99%, red 060.00% 074.29%, orange 074.29% 088.57%, yellow 088.57% 100% ) } 
+        64.00% { background : conic-gradient( yellow 0% 006.85%, green 006.85% 021.13%, cyan 021.13% 035.42%, blue 035.42% 049.70%, violet 049.70% 063.99%, red 064.00% 078.29%, orange 078.29% 092.57%, yellow 092.57% 100% ) } 
+        68.00% { background : conic-gradient( yellow 0% 010.85%, green 010.85% 025.13%, cyan 025.13% 039.42%, blue 039.42% 053.70%, violet 053.70% 067.99%, red 068.00% 082.29%, orange 082.29% 096.57%, yellow 096.57% 100% ) } 
+        72.00% { background : conic-gradient( orange 0% 000.56%, yellow 000.56% 014.85%, green 014.85% 029.13%, cyan 029.13% 043.42%, blue 043.42% 057.70%, violet 057.70% 071.99%, red 072.00% 086.29%, orange 086.29% 100% ) } 
+        76.00% { background : conic-gradient( orange 0% 004.56%, yellow 004.56% 018.85%, green 018.85% 033.13%, cyan 033.13% 047.42%, blue 047.42% 061.70%, violet 061.70% 075.99%, red 076.00% 090.29%, orange 090.29% 100% ) } 
+        80.00% { background : conic-gradient( orange 0% 008.56%, yellow 008.56% 022.85%, green 022.85% 037.13%, cyan 037.13% 051.42%, blue 051.42% 065.70%, violet 065.70% 079.99%, red 080.00% 094.29%, orange 094.29% 100% ) } 
+        84.00% { background : conic-gradient( orange 0% 012.56%, yellow 012.56% 026.85%, green 026.85% 041.13%, cyan 041.13% 055.42%, blue 055.42% 069.70%, violet 069.70% 083.99%, red 084.00% 098.29%, orange 098.29% 100% ) } 
+        88.00% { background : conic-gradient( red 0% 002.28%, orange 002.28% 016.56%, yellow 016.56% 030.85%, green 030.85% 045.13%, cyan 045.13% 059.42%, blue 059.42% 073.70%, violet 073.70% 087.99%, red 088.00% 100% ) } 
+        92.00% { background : conic-gradient( red 0% 006.28%, orange 006.28% 020.56%, yellow 020.56% 034.85%, green 034.85% 049.13%, cyan 049.13% 063.42%, blue 063.42% 077.70%, violet 077.70% 091.99%, red 092.00% 100% ) } 
+        96.00% { background : conic-gradient( red 0% 010.28%, orange 010.28% 024.56%, yellow 024.56% 038.85%, green 038.85% 053.13%, cyan 053.13% 067.42%, blue 067.42% 081.70%, violet 081.70% 095.99%, red 096.00% 100% ) } 
+        100.00% { background : conic-gradient( red 000.00% 014.29%, orange 014.29% 028.57%, yellow 028.57% 042.86%, green 042.86% 057.14%, cyan 057.14% 071.43%, blue 071.43% 085.71%, violet 085.71% 100.00% ) } 
+      }
       div.pouet { display: inline-block; text-align: justify; width: 340px; vertical-align: top; margin: 5px; } 
       div.pouet div.b { font-weight: bold; text-decoration: underline; } 
       div.pouet div.d { font-style: italic; text-align: center; font-weight: bold; } 
@@ -40,6 +69,8 @@
       function format(text) { let stuff = text.split( "" );
         for( let i = 0; i < stuff.length; ++i ) { if( subs[stuff[i]] !== undefined ){ stuff[i] = subs[stuff[i]]; } } return stuff.join('');
       }
+
+      function fx(n) { return ( "000" + n.toFixed(2) ).slice(-6); }
 
       function ms2hms(s,f=47,solid=false) {
         let t = ( s < 0 ) ? -1 * s : s, m, r = []; 
@@ -128,6 +159,35 @@
       }// conic-gradient( red 6deg, orange 6deg 18deg, yellow 18deg 45deg);
 
 
+      function notEmptyArray() { var a = {}, r = "";
+        for( let i = 0; i < 5; ++i ) { a[ "_" + i ] = i; }
+        for( let i in a ) { r+= i + " : " + a[i] + ", "; }
+        console.log(a); console.log(r); return a;
+      }
+
+
+      function fannimate() { 
+        let colors = [ "red", "orange", "yellow", "green", "cyan", "blue", "violet" ], linewrap = [ " { background : conic-gradient( ", " ) } " ]; 
+        let finalCSS = "@keyframes spin { ", turnpc = 0, cpc0 = 0, cpc1 = 0, tmp = []; var gradStops = [];
+        for( let j = 0; j < 25; ++j ) { 
+          turnpc = ((j/25)*100); finalCSS += "\n  " + turnpc.toFixed(2) + "%" + linewrap[0]; gradStops = [];
+          for( let i = 0; i < colors.length; ++i ) { cpc0 = ( i / colors.length ) * 100; cpc1 = ( ( i + 1 ) / colors.length ) * 100;
+            if( ( turnpc + cpc0 ) < 100 && ( turnpc + cpc1 ) > 100 ) { gradStops.push( ( fx( turnpc + cpc0 ) + "% 100%" ) + "|" + colors[i] ); gradStops.push( "0% " + fx( ( turnpc + cpc1 ) % 100.01 ) + "%" + "|" + colors[i] ); } 
+            else { gradStops.push( fx( ( turnpc + cpc0 ) % 100.01 ) + "% " + fx( ( turnpc + cpc1 ) % 100.01 ) + "%" + "|" + colors[i] ); }
+          } gradStops.sort(); for( let i = 0; i < gradStops.length; ++i ) { tmp = gradStops[i].split("|"); finalCSS += tmp[1] + " " + tmp[0] + ", "; }  //console.log(gradStops);
+          finalCSS = finalCSS.substring( 0, finalCSS.length-2 ) + linewrap[1];
+        } turnpc = 100; finalCSS += "\n  " + turnpc.toFixed(2) + "%" + linewrap[0]; turnpc = 0; gradStops = [];
+        for( let i = 0; i < colors.length; ++i ) { cpc0 = ( i / colors.length ) * 100; cpc1 = ( ( i + 1 ) / colors.length ) * 100;
+          if( ( turnpc + cpc0 ) < 100 && ( turnpc + cpc1 ) > 100 ) { gradStops.push( ( fx( turnpc + cpc0 ) + "% 100%" ) + "|" + colors[i] ); gradStops.push( "0% " + fx( ( turnpc + cpc1 ) % 100.01 ) + "%" + "|" + colors[i] ); } 
+          else { gradStops.push( fx( ( turnpc + cpc0 ) % 100.01 ) + "% " + fx( ( turnpc + cpc1 ) % 100.01 ) + "%" + "|" + colors[i] ); }
+        }  gradStops.sort(); for( let i = 0; i < gradStops.length; ++i ) { tmp = gradStops[i].split("|"); finalCSS += tmp[1] + " " + tmp[0] + ", "; } 
+        finalCSS = finalCSS.substring( 0, finalCSS.length-2 ) + linewrap[1] + "\n}";
+
+        return finalCSS;
+      }
+
+
+
       //newLine.style.left = 'var(--nowInPx)'; newLine.style.top = '0px'; newLine.style.height = '50px'; 
       //newLine.style.left = sec2px( stamps[i] ) + 'px'; newLine.style.top = '0px'; newLine.style.height = '50px'; 
 
@@ -189,7 +249,7 @@
   </head>
   <body onload="init();">
     <div id="stuff">
-      <span id="t1"></span> missing...<br/><span id="t2"></span> left...<br/><span id="t3"></span> total<br/><span id="t4"></span> effective<br/><span id="t5"></span> lost...<br/><span id="t9"></span> longest...<br/><!-- <span id="breakdown"></span><br/><br/><div id="lost"></div>--><div id="lifeLine"></div><br/>( <span id="lllabel"></span> per pixel )<div id="wheeloflife"></div>
+      <span id="t1"></span> missing...<br/><span id="t2"></span> left...<br/><span id="t3"></span> total<br/><span id="t4"></span> effective<br/><span id="t5"></span> lost...<br/><span id="t9"></span> longest...<br/><!-- <span id="breakdown"></span><br/><br/><div id="lost"></div>--><div id="lifeLine"></div><br/>( <span id="lllabel"></span> per pixel )<div id="wheeloflife"></div><div id="squareoffortune"></div>
     </div><div id="t6" class="pouet"></div><div id="t7" class="pouet"></div><div id="t8" class="pouet"></div>
     
   </body>
