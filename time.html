@@ -10,7 +10,8 @@
       div#lifeLine { display: inline-block; width: 500px; height: 25px; vertical-align: top; margin: 5px 0 0 0; font-family: monospace; } div#lifeLine div { display: inline-block; height: 25px; }
       div#lifeLine div.ll0 { background-color: green; } div#lifeLine div.ll1 { background-color: red; } div#lifeLine div.ll2 { background-color: purple; } div#lifeLine div.ll3 { background-color: black; }
       div#wheeloflife { display: inline-block; width: 500px; height: 500px; vertical-align: top; margin: 5px 0 0 0; font-family: monospace; border-radius: 50%; mask: radial-gradient(farthest-side,#0000 90%, #000 95%); }
-      div#squareoffortune { display: inline-block; width: 450px; height: 450px; vertical-align: top; margin: 5px 0 0 0; font-family: monospace; animation: spin 1s linear 0s infinite; background : conic-gradient( green 0% 10%, red 10% 20%, green 20% 30%, red 30% 40%, green 40% 50%, red 50% 60%, green 60% 70%, red 70% 80%, green 80% 90%, red 90% 100% ); border-radius: 50%; mask: radial-gradient(farthest-side,#0000 90%, #000 95%); }
+      div#squareoffortune { display: inline-block; width: 450px; height: 450px; vertical-align: top; margin: 5px 0 0 0; font-family: monospace; background : conic-gradient( red 0% 14.29%, orange 14.29% 28.57%, yellow 28.57% 42.86%, green 42.86% 57.14%, cyan 57.14% 71.43%, blue 71.43% 85.71%, violet 85.71% 100.00% ); border-radius: 50%; mask: radial-gradient(farthest-side,#0000 90%, #000 95%); }
+      div.okSpin { animation: spin 1s linear 0s infinite; }
       @keyframes spin { 
         0.00% { background : conic-gradient( red 000.00% 014.29%, orange 014.29% 028.57%, yellow 028.57% 042.86%, green 042.86% 057.14%, cyan 057.14% 071.43%, blue 071.43% 085.71%, violet 085.71% 100.00% ) } 
         4.00% { background : conic-gradient( violet 0% 003.99%, red 004.00% 018.29%, orange 018.29% 032.57%, yellow 032.57% 046.86%, green 046.86% 061.14%, cyan 061.14% 075.43%, blue 075.43% 089.71%, violet 089.71% 100% ) } 
@@ -98,6 +99,7 @@
         //document.getElementById('t5').innerHTML = grad( ms2hms( ( stamps[2] - stamps[1] ) + ( stamps[6] - stamps[3] ) + ( stamps[4] - stamps[7] ) ), rainbow ); // lost time
         document.getElementById('t9').innerHTML = grad( ms2hms( stamps[5] - stamps[4], 47, true ), rainbow ); // latest presence
         if( window.location.href.split('#')[1] != "plain" ) {
+          document.getElementById('squareoffortune').classList.add("okSpin");
           document.getElementById('t6').innerHTML = grad( longBS, rainbow, true );  //format(longBS);
           document.getElementById('t7').innerHTML = grad( mediumBS, rainbow, true );//format(mediumBS);
           document.getElementById('t8').innerHTML = grad( shortBS, rainbow, true ); //format(shortBS);
