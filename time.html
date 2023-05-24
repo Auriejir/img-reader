@@ -75,12 +75,12 @@
 
       function ms2hms(s,f=47,solid=false) {
         let t = ( s < 0 ) ? -1 * s : s, m, r = []; 
-        if( ( t >= 31556952000 || solid ) && ( f & 32 ) ) { m = ''+Math.floor( t / 31556952000 ); r.push( ( solid ? m.padStart( 1, "0" ) : m ) + " year"   + ( ( m > 1 ) ? "s" : ( solid ? " " : "" ) ) ); t -= ( m * 31556952000 ); }
-        if( ( t >= 2629746000  || solid ) && ( f & 16 ) ) { m = ''+Math.floor( t / 2629746000  ); r.push( ( solid ? m.padStart( 2, "0" ) : m ) + " month"  + ( ( m > 1 ) ? "s" : ( solid ? " " : "" ) ) ); t -= ( m * 2629746000  ); }
-        if( ( t >= 86400000    || solid ) && ( f &  8 ) ) { m = ''+Math.floor( t / 86400000    ); r.push( ( solid ? m.padStart( 3, "0" ) : m ) + " day"    + ( ( m > 1 ) ? "s" : ( solid ? " " : "" ) ) ); t -= ( m * 86400000    ); }
-        if( ( t >= 3600000     || solid ) && ( f &  4 ) ) { m = ''+Math.floor( t / 3600000     ); r.push( ( solid ? m.padStart( 2, "0" ) : m ) + " hour"   + ( ( m > 1 ) ? "s" : ( solid ? " " : "" ) ) ); t -= ( m * 3600000     ); }
-        if( ( t >= 60000       || solid ) && ( f &  2 ) ) { m = ''+Math.floor( t / 60000       ); r.push( ( solid ? m.padStart( 2, "0" ) : m ) + " minute" + ( ( m > 1 ) ? "s" : ( solid ? " " : "" ) ) ); t -= ( m * 60000       ); }
-        if( ( t >= 1000        || solid ) && ( f &  1 ) ) { m = ''+Math.floor( t / 1000        ); r.push( ( solid ? m.padStart( 2, "0" ) : m ) + " second" + ( ( m > 1 ) ? "s" : ( solid ? " " : "" ) ) ); t -= ( m * 1000        ); }
+        if( ( t >= 31556952000 || solid ) && ( f & 32 ) ) { m = ''+Math.floor( t / 31556952000 ); r.push( ( solid ? m.padStart( 1, "0" ) : m ) + " year"   + ( ( m > 1 ) ? "s" : ( solid ? " " : "" ) ) ); t -= ( m * 31556952000 ); }
+        if( ( t >= 2629746000  || solid ) && ( f & 16 ) ) { m = ''+Math.floor( t / 2629746000  ); r.push( ( solid ? m.padStart( 2, "0" ) : m ) + " month"  + ( ( m > 1 ) ? "s" : ( solid ? " " : "" ) ) ); t -= ( m * 2629746000  ); }
+        if( ( t >= 86400000    || solid ) && ( f &  8 ) ) { m = ''+Math.floor( t / 86400000    ); r.push( ( solid ? m.padStart( 3, "0" ) : m ) + " day"    + ( ( m > 1 ) ? "s" : ( solid ? " " : "" ) ) ); t -= ( m * 86400000    ); }
+        if( ( t >= 3600000     || solid ) && ( f &  4 ) ) { m = ''+Math.floor( t / 3600000     ); r.push( ( solid ? m.padStart( 2, "0" ) : m ) + " hour"   + ( ( m > 1 ) ? "s" : ( solid ? " " : "" ) ) ); t -= ( m * 3600000     ); }
+        if( ( t >= 60000       || solid ) && ( f &  2 ) ) { m = ''+Math.floor( t / 60000       ); r.push( ( solid ? m.padStart( 2, "0" ) : m ) + " minute" + ( ( m > 1 ) ? "s" : ( solid ? " " : "" ) ) ); t -= ( m * 60000       ); }
+        if( ( t >= 1000        || solid ) && ( f &  1 ) ) { m = ''+Math.floor( t / 1000        ); r.push( ( solid ? m.padStart( 2, "0" ) : m ) + " second" + ( ( m > 1 ) ? "s" : ( solid ? " " : "" ) ) ); t -= ( m * 1000        ); }
         return r.join(', ');
       }
       //function readable(v) { var r = ( v < 0 ) ? v + 4294967296 : v; return ( r > 562949953421312 ) ? ( r / 1125899906842624. ).toFixed(2) + " P": ( r > 549755813888 ) ? ( r / 1099511627776. ).toFixed(2) + " T": ( r > 536870912 ) ? ( r / 1073741824. ).toFixed(2) + " G": ( r > 524288 ) ? ( r / 1048576. ).toFixed(2) + " M": ( r > 512 ) ? ( r / 1024. ).toFixed(2) + " K": r; }
