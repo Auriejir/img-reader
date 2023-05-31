@@ -115,7 +115,7 @@
         document.getElementById('t2').innerHTML = grad( ms2hms( endStamp - now, 47, true ), rainbow ); // until expire
         document.getElementById('t3').innerHTML = grad( ms2hms( tTotal, 47, true ), rainbow ); // total time
         document.getElementById('t5').innerHTML = grad( ms2hms( tLost, 47, true ), rainbow ); // lost time
-        document.getElementById('wheeloflife').innerHTML = '<div class="inWheel">' + ( tLost / tTotal * 100 ).toFixed(2) + ' %</div>';
+        document.getElementById('wheeloflife').innerHTML = '<div class="inWheel">' + ( ( tTotal - tLost ) / tTotal * 100 ).toFixed(2) + ' %</div>';
         setTimeout(tick, 1000); //console.log("ticked");
       }
 
